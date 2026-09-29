@@ -90,27 +90,39 @@ document.getElementById(
 
 let progress=0;
 
-let seconds=10;
+seconds-=0.1;
+
+
+document.getElementById(
+"time"
+).innerHTML=
+seconds.toFixed(1)+"s";
 
 
 
 let logs=[
 
+let logs=[
+
 "CONNECTING AI NODE",
+
+"TARGET SCAN: "+data.target,
 
 "ANALYZING TARGET",
 
-"BUILDING MATRIX",
+"BUILDING POSSIBILITY MATRIX",
 
-"RUNNING MODEL",
+"RUNNING NEURAL MODEL",
 
-"SEARCHING POSSIBILITY",
+"SEARCHING DATABASE",
+
+"QUANTUM PATH FOUND",
 
 "NEURAL NETWORK ACTIVE",
 
 "DATA VERIFIED",
 
-"QUANTUM PATH FOUND"
+"CALCULATION COMPLETE"
 
 ];
 
@@ -185,6 +197,15 @@ ${data.target}
 
 <br><br>
 
+INPUT DATA:
+
+<br>
+
+${data.number}
+
+<br><br>
+
+
 SUCCESS RATE
 
 <br>
@@ -214,6 +235,29 @@ HIGH
 
 
 window.onload=function(){
+
+let id =
+location.hash.substring(1);
+
+
+if(id){
+
+
+let data =
+localStorage.getItem(id);
+
+
+if(data){
+
+startAI(
+JSON.parse(data)
+);
+
+}
+
+}
+
+}
 
 
 
