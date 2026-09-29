@@ -1,5 +1,6 @@
 function createShare(){
 
+
 let data={
 
 target:
@@ -14,74 +15,14 @@ document.getElementById("rate").value
 };
 
 
-let id="AI"+data.number;
+let id =
+"AI"+data.number;
+
 
 
 localStorage.setItem(
 id,
 JSON.stringify(data)
-);
-
-
-
-let link=
-location.origin+
-location.pathname+
-"#"+
-id;
-
-
-
-navigator.clipboard.writeText(link);
-
-
-
-alert(
-"分享链接已复制:\n\n"+
-link
-);
-
-
-}
-
-
-function createShare(){
-
-
-let targetValue =
-document.getElementById("target").value;
-
-
-let numberValue =
-document.getElementById("number").value;
-
-
-let rateValue =
-document.getElementById("rate").value;
-
-
-
-//生成任务编号
-
-let id =
-"AI"+
-numberValue;
-
-
-
-//保存数据到浏览器本地
-
-localStorage.setItem(
-id,
-JSON.stringify({
-
-target:targetValue,
-
-number:numberValue,
-
-rate:rateValue
-
-})
 );
 
 
@@ -102,7 +43,6 @@ alert(
 "AI任务链接已复制:\n\n"+
 link
 );
-
 
 
 }
@@ -127,29 +67,22 @@ document.getElementById(
 
 document.getElementById(
 "targetShow"
-).innerHTML=data.target;
+).innerHTML=
+data.target;
 
 
 
 let progress=0;
 
-seconds-=0.1;
 
-
-document.getElementById(
-"time"
-).innerHTML=
-seconds.toFixed(1)+"s";
-
-
-
-let logs=[
 
 let logs=[
 
 "CONNECTING AI NODE",
 
 "TARGET SCAN: "+data.target,
+
+"INPUT DATA ANALYSIS: "+data.number,
 
 "ANALYZING TARGET",
 
@@ -174,17 +107,9 @@ let logs=[
 let timer=setInterval(()=>{
 
 
-seconds-=0.1;
-
-
-document.getElementById(
-"time"
-).innerHTML=
-seconds.toFixed(1)+"s";
-
-
-
 let line=document.createElement("div");
+
+
 
 line.innerHTML=
 
@@ -205,13 +130,28 @@ document.getElementById(
 
 
 
+if(
+document.getElementById("code").children.length>20
+){
+
+document.getElementById("code")
+.removeChild(
+document.getElementById("code").firstChild
+);
+
+}
+
+
+
 progress++;
+
 
 
 document.getElementById(
 "progress"
 ).style.width=
 progress+"%";
+
 
 
 
@@ -238,6 +178,7 @@ TARGET:
 
 ${data.target}
 
+
 <br><br>
 
 INPUT DATA:
@@ -246,14 +187,15 @@ INPUT DATA:
 
 ${data.number}
 
+
 <br><br>
 
-
-SUCCESS RATE
+SUCCESS RATE:
 
 <br>
 
 ${data.rate}%
+
 
 <br><br>
 
@@ -268,6 +210,7 @@ HIGH
 }
 
 
+
 },100);
 
 
@@ -277,31 +220,8 @@ HIGH
 
 
 
+
 window.onload=function(){
-
-let id =
-location.hash.substring(1);
-
-
-if(id){
-
-
-let data =
-localStorage.getItem(id);
-
-
-if(data){
-
-startAI(
-JSON.parse(data)
-);
-
-}
-
-}
-
-}
-
 
 
 try{
@@ -329,6 +249,7 @@ JSON.parse(data)
 
 
 }
+
 
 }
 
