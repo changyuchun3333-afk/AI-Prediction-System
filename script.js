@@ -1,10 +1,8 @@
 function encode(data){
 
 return btoa(
-unescape(
 encodeURIComponent(
 JSON.stringify(data)
-)
 )
 );
 
@@ -16,14 +14,11 @@ function decode(data){
 
 return JSON.parse(
 decodeURIComponent(
-escape(
 atob(data)
-)
 )
 );
 
 }
-
 
 
 function createShare(){
@@ -224,6 +219,9 @@ HIGH
 window.onload=function(){
 
 
+try{
+
+
 if(location.hash){
 
 
@@ -237,5 +235,27 @@ startAI(data);
 
 
 }
+
+
+}catch(e){
+
+
+document.body.innerHTML=
+`
+<div style="
+color:#00ffff;
+font-family:monospace;
+padding:30px;
+">
+
+AI LINK ERROR<br><br>
+
+INVALID DATA STREAM
+
+</div>
+`;
+
+}
+
 
 }
