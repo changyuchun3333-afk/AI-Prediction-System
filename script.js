@@ -1,48 +1,55 @@
-function createShare(){
+// ==============================
+// AI CORE v4.0
+// ==============================
 
 
-let data={
+// 后台密码
 
-target:
-document.getElementById("target").value,
-
-number:
-document.getElementById("number").value,
-
-rate:
-document.getElementById("rate").value
-
-};
-
-
-let id =
-"AI"+data.number;
+const ADMIN_PASSWORD = "qs133";
 
 
 
-localStorage.setItem(
-id,
-JSON.stringify(data)
-);
+
+
+// ==============================
+// 登录后台
+// ==============================
+
+
+function login(){
+
+
+let password =
+document.getElementById("password").value;
 
 
 
-let link =
-location.origin+
-location.pathname+
-"#"+
-id;
+if(password === ADMIN_PASSWORD){
+
+
+document.getElementById(
+"loginPanel"
+).style.display="none";
 
 
 
-navigator.clipboard.writeText(link);
+document.getElementById(
+"adminPanel"
+).style.display="block";
 
 
 
-alert(
-"AI任务链接已复制:\n\n"+
-link
-);
+}else{
+
+
+document.getElementById(
+"loginError"
+).innerHTML =
+"ACCESS DENIED";
+
+
+}
+
 
 
 }
@@ -51,12 +58,110 @@ link
 
 
 
-function startAI(data){
+
+
+// ==============================
+// 生成分享任务
+// ==============================
+
+
+async function createShare(){
+
+
+
+let data={
+
+
+target:
+document.getElementById("target").value,
+
+
+number:
+document.getElementById("number").value,
+
+
+rate:
+document.getElementById("rate").value
+
+
+
+};
+
+
+
+
+
+// 生成任务编号
+
+
+let taskID =
+"AI"+
+Date.now();
+
+
+
+
+
+// 保存到 Firebase
+
+await saveTask(
+taskID,
+data
+);
+
+
+
+
+
+let link =
+
+location.origin+
+location.pathname+
+"#"+
+taskID;
+
+
+
 
 
 document.getElementById(
-"inputPanel"
-).style.display="none";
+"linkBox"
+).innerHTML=
+
+`
+SHARE LINK:
+
+<br>
+
+${link}
+
+`;
+
+
+
+
+
+navigator.clipboard.writeText(link);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==============================
+// AI运行
+// ==============================
+
+
+function startAI(data){
+
 
 
 document.getElementById(
@@ -66,9 +171,24 @@ document.getElementById(
 
 
 document.getElementById(
+"loginPanel"
+).style.display="none";
+
+
+document.getElementById(
+"adminPanel"
+).style.display="none";
+
+
+
+
+
+document.getElementById(
 "targetShow"
-).innerHTML=
+).innerHTML =
 data.target;
+
+
 
 
 
@@ -76,51 +196,79 @@ let progress=0;
 
 
 
+
 let logs=[
+
 
 "CONNECTING AI NODE",
 
-"TARGET SCAN: "+data.target,
 
-"INPUT DATA ANALYSIS: "+data.number,
+"TARGET SCAN : "+data.target,
 
-"ANALYZING TARGET",
+
+"INPUT DATA ANALYSIS : "+data.number,
+
 
 "BUILDING POSSIBILITY MATRIX",
 
-"RUNNING NEURAL MODEL",
 
-"SEARCHING DATABASE",
+"SEARCHING NEURAL DATABASE",
+
 
 "QUANTUM PATH FOUND",
 
-"NEURAL NETWORK ACTIVE",
 
-"DATA VERIFIED",
+"RUNNING PREDICTION MODEL",
 
-"CALCULATION COMPLETE"
+
+"VERIFYING RESULT",
+
+
+"DATA STREAM COMPLETE",
+
+
+"CALCULATION FINISHED"
+
 
 ];
+
+
 
 
 
 let timer=setInterval(()=>{
 
 
-let line=document.createElement("div");
+
+let line =
+document.createElement("div");
 
 
 
-line.innerHTML=
+line.innerHTML =
 
-"> "+
+"> "
+
++
+
 logs[
 Math.floor(
 Math.random()*logs.length
 )
-]+
-"  "+
-Math.floor(Math.random()*999999);
+
+]
+
++
+
+"  "
+
++
+
+Math.floor(
+Math.random()*999999
+);
+
+
 
 
 
@@ -130,16 +278,24 @@ document.getElementById(
 
 
 
+
+
 if(
-document.getElementById("code").children.length>20
+document.getElementById("code").children.length>18
 ){
+
 
 document.getElementById("code")
 .removeChild(
 document.getElementById("code").firstChild
 );
 
+
 }
+
+
+
+
 
 
 
@@ -150,7 +306,10 @@ progress++;
 document.getElementById(
 "progress"
 ).style.width=
+
 progress+"%";
+
+
 
 
 
@@ -158,7 +317,17 @@ progress+"%";
 if(progress>=100){
 
 
+
 clearInterval(timer);
+
+
+
+
+document.getElementById(
+"status"
+).innerHTML=
+"COMPLETE";
+
 
 
 
@@ -166,11 +335,13 @@ document.getElementById(
 "result"
 ).innerHTML=
 
+
 `
 
 ANALYSIS COMPLETE
 
 <br><br>
+
 
 TARGET:
 
@@ -181,6 +352,7 @@ ${data.target}
 
 <br><br>
 
+
 INPUT DATA:
 
 <br>
@@ -189,6 +361,7 @@ ${data.number}
 
 
 <br><br>
+
 
 SUCCESS RATE:
 
@@ -199,19 +372,16 @@ ${data.rate}%
 
 <br><br>
 
+
 AI CONFIDENCE:
 
 <br>
 
 HIGH
 
+
 `;
 
-}
-
-
-
-},100);
 
 
 
@@ -219,46 +389,60 @@ HIGH
 
 
 
+},120);
 
 
-window.onload=function(){
+
+}
 
 
-try{
 
 
-let id =
+
+
+
+
+
+// ==============================
+// 打开分享链接自动运行
+// ==============================
+
+
+
+async function checkShare(){
+
+
+
+let taskID =
+
 location.hash.substring(1);
 
 
 
-if(id){
+
+
+if(taskID){
+
 
 
 let data =
-localStorage.getItem(id);
+
+await getTask(taskID);
+
+
 
 
 
 if(data){
 
 
-startAI(
-JSON.parse(data)
-);
+
+startAI(data);
+
 
 
 }
 
-
-}
-
-
-
-}catch(e){
-
-
-console.log(e);
 
 
 }
@@ -266,3 +450,21 @@ console.log(e);
 
 
 }
+
+
+
+
+
+
+
+
+// 页面启动
+
+
+window.onload=function(){
+
+
+checkShare();
+
+
+};
