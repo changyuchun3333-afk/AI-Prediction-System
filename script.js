@@ -1,71 +1,96 @@
-function encode(data){
+let taskData={};
 
-return btoa(
-unescape(
-encodeURIComponent(
-JSON.stringify(data)
-)
-)
-);
-
-}
-
-
-
-function decode(data){
-
-return JSON.parse(
-decodeURIComponent(
-escape(
-atob(data)
-)
-)
-);
-
-}
 
 
 function createShare(){
 
 
-let data={
-
-target:
-target.value,
+let targetValue =
+document.getElementById("target").value;
 
 
-number:
-number.value,
+let numberValue =
+document.getElementById("number").value;
 
 
-rate:
-rate.value
-
-
-};
+let rateValue =
+document.getElementById("rate").value;
 
 
 
-let link=
+//生成任务编号
+
+let id =
+"AI"+
+numberValue;
+
+
+
+//保存数据到浏览器本地
+
+localStorage.setItem(
+id,
+JSON.stringify({
+
+target:targetValue,
+
+number:numberValue,
+
+rate:rateValue
+
+})
+);
+
+
+
+let link =
 location.origin+
 location.pathname+
 "#"+
-encode(data);
+id;
 
 
 
 navigator.clipboard.writeText(link);
 
 
+
 alert(
-"分享链接已复制\n\n"+
+"AI任务链接已复制:\n\n"+
 link
 );
+
 
 
 }
 
 
+
+
+
+function startAI(data){
+
+
+document.getElementById(
+"inputPanel"
+).style.display="none";
+
+
+document.getElementById(
+"screen"
+).style.display="block";
+
+
+
+document.getElementById(
+"targetShow"
+).innerHTML=data.target;
+
+
+
+let progress=0;
+
+let seconds=10;
 
 
 
@@ -73,44 +98,21 @@ let logs=[
 
 "CONNECTING AI NODE",
 
-"VERIFYING DATA STREAM",
+"ANALYZING TARGET",
 
-"ACCESSING NEURAL MATRIX",
+"BUILDING MATRIX",
 
-"LOADING QUANTUM MODEL",
+"RUNNING MODEL",
 
-"DECRYPTING PACKETS",
+"SEARCHING POSSIBILITY",
 
-"SCANNING POSSIBILITY FIELD",
+"NEURAL NETWORK ACTIVE",
 
-"CALCULATING PROBABILITY",
+"DATA VERIFIED",
 
-"NODE 07 CONNECTED",
-
-"AI MODEL SYNCHRONIZED",
-
-"HASH VALIDATION COMPLETE"
+"QUANTUM PATH FOUND"
 
 ];
-
-
-
-function startAI(data){
-
-
-inputPanel.style.display="none";
-
-screen.style.display="block";
-
-
-
-targetShow.innerHTML=data.target;
-
-
-
-let seconds=10;
-
-let progress=0;
 
 
 
@@ -120,56 +122,41 @@ let timer=setInterval(()=>{
 seconds-=0.1;
 
 
-time.innerHTML=
+document.getElementById(
+"time"
+).innerHTML=
 seconds.toFixed(1)+"s";
 
 
 
 let line=document.createElement("div");
 
-line.className="line";
+line.innerHTML=
 
-
-let random=
+"> "+
 logs[
 Math.floor(
 Math.random()*logs.length
 )
-];
-
-
-
-line.innerHTML=
-
-"> "+
-random+
-" : "+
+]+
+"  "+
 Math.floor(Math.random()*999999);
 
 
 
-code.appendChild(line);
+document.getElementById(
+"code"
+).appendChild(line);
 
 
 
-if(code.children.length>18){
-
-code.removeChild(
-code.firstChild
-);
-
-}
-
-
-
-progress+=1;
+progress++;
 
 
 document.getElementById(
 "progress"
 ).style.width=
 progress+"%";
-
 
 
 
@@ -180,13 +167,18 @@ clearInterval(timer);
 
 
 
-result.innerHTML=
+document.getElementById(
+"result"
+).innerHTML=
 
 `
+
 ANALYSIS COMPLETE
+
 <br><br>
 
 TARGET:
+
 <br>
 
 ${data.target}
@@ -214,8 +206,9 @@ HIGH
 
 },100);
 
-}
 
+
+}
 
 
 
@@ -223,43 +216,45 @@ HIGH
 window.onload=function(){
 
 
+
 try{
 
 
-if(location.hash){
+let id =
+location.hash.substring(1);
 
 
-let data=
-decode(
-location.hash.substring(1)
+
+if(id){
+
+
+let data =
+localStorage.getItem(id);
+
+
+
+if(data){
+
+
+startAI(
+JSON.parse(data)
 );
 
 
-startAI(data);
-
+}
 
 }
+
 
 
 }catch(e){
 
 
-document.body.innerHTML=
-`
-<div style="
-color:#00ffff;
-font-family:monospace;
-padding:30px;
-">
+console.log(e);
 
-AI LINK ERROR<br><br>
-
-INVALID DATA STREAM
-
-</div>
-`;
 
 }
+
 
 
 }
