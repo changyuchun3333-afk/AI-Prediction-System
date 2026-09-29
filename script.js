@@ -1,8 +1,10 @@
 function encode(data){
 
 return btoa(
+unescape(
 encodeURIComponent(
 JSON.stringify(data)
+)
 )
 );
 
@@ -14,7 +16,9 @@ function decode(data){
 
 return JSON.parse(
 decodeURIComponent(
+escape(
 atob(data)
+)
 )
 );
 
