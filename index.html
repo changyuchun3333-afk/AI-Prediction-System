@@ -1,52 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
-<title>AI Prediction Core</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>AI CORE v3.0</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
+
 <body>
 
 
-<div class="panel" id="inputPanel">
+<div class="container" id="inputPanel">
 
-<h1>AI CORE</h1>
+<div class="logo">
+AI CORE
+</div>
 
-<p>
-NEURAL PREDICTION SYSTEM v2.0
-</p>
-
-
-<label>TARGET</label>
-<input id="target" placeholder="目标名称">
+<div class="subtitle">
+QUANTUM PREDICTION SYSTEM v3.0
+</div>
 
 
-<label>DATA INPUT</label>
+<label>TARGET NAME</label>
+<input id="target" placeholder="输入目标名称">
+
+
+<label>DATA STREAM</label>
 <input id="number" placeholder="输入数字">
 
 
-<label>SUCCESS RATE %</label>
+<label>SUCCESS RATE</label>
 <input id="rate" value="95.8">
-
-
-<select id="mode">
-
-<option>
-Quantum Prediction
-</option>
-
-<option>
-Neural Analysis
-</option>
-
-<option>
-Cyber Simulation
-</option>
-
-</select>
 
 
 <button onclick="createShare()">
@@ -59,28 +48,50 @@ START SIMULATION
 
 
 
+
 <div id="screen">
 
 
-<div class="terminal">
-<div>> INITIALIZING AI CORE...</div>
-<div>> CONNECTING NEURAL NETWORK...</div>
-<div>> DECRYPTING DATA...</div>
-<div>> BUILDING POSSIBILITY MATRIX...</div>
-<div>> RUNNING SIMULATION...</div>
-</div>
+<div class="top">
 
+AI CORE ONLINE
 
-<div class="bar">
-
-<div id="progress"></div>
+<span id="time">
+10.0s
+</span>
 
 </div>
 
 
-<div id="result">
+<div class="targetBox">
+
+TARGET:
+
+<br>
+
+<span id="targetShow"></span>
 
 </div>
+
+
+
+<div id="code">
+
+</div>
+
+
+
+<div class="progressBox">
+
+<div id="progress">
+
+</div>
+
+</div>
+
+
+
+<div id="result"></div>
 
 
 </div>
@@ -90,4 +101,5 @@ START SIMULATION
 <script src="script.js"></script>
 
 </body>
+
 </html>
