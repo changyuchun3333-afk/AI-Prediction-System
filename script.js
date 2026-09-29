@@ -26,31 +26,24 @@ atob(data)
 
 
 
-
 function createShare(){
 
 
 let data={
 
-
 target:
-document.getElementById("target").value,
+target.value,
 
 
 number:
-document.getElementById("number").value,
+number.value,
 
 
 rate:
-document.getElementById("rate").value
-
+rate.value
 
 
 };
-
-
-
-let code=encode(data);
 
 
 
@@ -58,19 +51,17 @@ let link=
 location.origin+
 location.pathname+
 "#"+
-code;
+encode(data);
 
 
 
 navigator.clipboard.writeText(link);
 
 
-
 alert(
-"分享链接已经复制:\n\n"+
+"分享链接已复制\n\n"+
 link
 );
-
 
 
 }
@@ -79,19 +70,46 @@ link
 
 
 
+let logs=[
+
+"CONNECTING AI NODE",
+
+"VERIFYING DATA STREAM",
+
+"ACCESSING NEURAL MATRIX",
+
+"LOADING QUANTUM MODEL",
+
+"DECRYPTING PACKETS",
+
+"SCANNING POSSIBILITY FIELD",
+
+"CALCULATING PROBABILITY",
+
+"NODE 07 CONNECTED",
+
+"AI MODEL SYNCHRONIZED",
+
+"HASH VALIDATION COMPLETE"
+
+];
+
+
+
 function startAI(data){
 
 
-document.getElementById(
-"inputPanel"
-).style.display="none";
+inputPanel.style.display="none";
+
+screen.style.display="block";
 
 
-document.getElementById(
-"screen"
-).style.display="block";
+
+targetShow.innerHTML=data.target;
 
 
+
+let seconds=10;
 
 let progress=0;
 
@@ -100,13 +118,59 @@ let progress=0;
 let timer=setInterval(()=>{
 
 
-progress++;
+seconds-=0.1;
+
+
+time.innerHTML=
+seconds.toFixed(1)+"s";
+
+
+
+let line=document.createElement("div");
+
+line.className="line";
+
+
+let random=
+logs[
+Math.floor(
+Math.random()*logs.length
+)
+];
+
+
+
+line.innerHTML=
+
+"> "+
+random+
+" : "+
+Math.floor(Math.random()*999999);
+
+
+
+code.appendChild(line);
+
+
+
+if(code.children.length>18){
+
+code.removeChild(
+code.firstChild
+);
+
+}
+
+
+
+progress+=1;
 
 
 document.getElementById(
 "progress"
 ).style.width=
 progress+"%";
+
 
 
 
@@ -117,10 +181,7 @@ clearInterval(timer);
 
 
 
-document.getElementById(
-"result"
-).innerHTML=
-
+result.innerHTML=
 
 `
 ANALYSIS COMPLETE
@@ -142,23 +203,17 @@ ${data.rate}%
 <br><br>
 
 AI CONFIDENCE:
+
 <br>
 
 HIGH
-
-<br><br>
-
-SYSTEM COMPLETE
 
 `;
 
 }
 
 
-
-},200);
-
-
+},100);
 
 }
 
@@ -166,9 +221,7 @@ SYSTEM COMPLETE
 
 
 
-
 window.onload=function(){
-
 
 
 if(location.hash){
@@ -180,19 +233,9 @@ location.hash.substring(1)
 );
 
 
-
-setTimeout(()=>{
-
-
 startAI(data);
 
 
-},100);
-
-
-
 }
-
-
 
 }
