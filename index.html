@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>AI CORE v3.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI CORE SYSTEM</title>
+
 
 <link rel="stylesheet" href="style.css">
+
 
 </head>
 
@@ -15,91 +19,234 @@
 <body>
 
 
-<div class="container" id="inputPanel">
 
-<div class="logo">
+<!-- =====================
+     后台密码页面
+===================== -->
+
+
+<div class="panel" id="loginPanel">
+
+
+<h1>
 AI CORE
-</div>
+</h1>
+
 
 <div class="subtitle">
-QUANTUM PREDICTION SYSTEM v3.0
+SYSTEM LOGIN
 </div>
 
 
-<label>TARGET NAME</label>
-<input id="target" placeholder="输入目标名称">
+
+<input 
+type="password"
+id="password"
+placeholder="ENTER PASSWORD"
+>
 
 
-<label>DATA STREAM</label>
-<input id="number" placeholder="输入数字">
 
+<button onclick="login()">
 
-<label>SUCCESS RATE</label>
-<input id="rate" value="95.8">
+ACCESS SYSTEM
 
-
-<button onclick="createShare()">
-START SIMULATION
 </button>
 
 
+<div id="loginError"></div>
+
+
 </div>
 
 
 
 
 
-<div id="screen">
+<!-- =====================
+     AI后台输入页面
+===================== -->
 
 
-<div class="top">
+<div class="panel hidden" id="adminPanel">
+
+
+<h1>
+
+AI CORE
+
+</h1>
+
+
+<div class="subtitle">
+
+PREDICTION CONTROL PANEL
+
+</div>
+
+
+
+<label>
+
+TARGET NAME
+
+</label>
+
+
+<input 
+id="target"
+placeholder="输入目标名称"
+>
+
+
+
+
+<label>
+
+INPUT DATA
+
+</label>
+
+
+<input 
+id="number"
+placeholder="输入数字"
+>
+
+
+
+<label>
+
+SUCCESS RATE %
+
+</label>
+
+
+<input 
+id="rate"
+value="95.8"
+>
+
+
+
+<button onclick="createShare()">
+
+GENERATE AI LINK
+
+</button>
+
+
+
+<div id="linkBox"></div>
+
+
+</div>
+
+
+
+
+
+
+<!-- =====================
+     AI运行页面
+===================== -->
+
+
+<div id="screen" class="hidden">
+
+
+
+<div class="header">
+
+
+<div>
 
 AI CORE ONLINE
 
-<span id="time">
-10.0s
-</span>
+</div>
+
+
+<div id="status">
+
+RUNNING...
 
 </div>
 
 
+</div>
+
+
+
+
+
 <div class="targetBox">
+
 
 TARGET:
 
 <br>
 
-<span id="targetShow"></span>
+
+<span id="targetShow">
+
+</span>
+
 
 </div>
 
 
 
-<div id="code">
+
+
+
+<div class="terminal" id="code">
+
 
 </div>
+
+
 
 
 
 <div class="progressBox">
 
+
 <div id="progress">
 
-</div>
 
 </div>
-
-
-
-<div id="result"></div>
 
 
 </div>
 
 
+
+
+
+
+<div id="result">
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script src="firebase.js"></script>
 
 <script src="script.js"></script>
 
+
+
 </body>
+
 
 </html>
