@@ -1,5 +1,48 @@
-let taskData={};
+function createShare(){
 
+let data={
+
+target:
+document.getElementById("target").value,
+
+number:
+document.getElementById("number").value,
+
+rate:
+document.getElementById("rate").value
+
+};
+
+
+let id="AI"+data.number;
+
+
+localStorage.setItem(
+id,
+JSON.stringify(data)
+);
+
+
+
+let link=
+location.origin+
+location.pathname+
+"#"+
+id;
+
+
+
+navigator.clipboard.writeText(link);
+
+
+
+alert(
+"分享链接已复制:\n\n"+
+link
+);
+
+
+}
 
 
 function createShare(){
