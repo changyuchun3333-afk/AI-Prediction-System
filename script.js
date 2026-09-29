@@ -435,11 +435,11 @@ await getTask(taskID);
 
 if(data){
 
+document.getElementById("inputPanel").style.display="none";
 
+document.getElementById("screen").style.display="block";
 
 startAI(data);
-
-
 
 }
 
@@ -463,8 +463,20 @@ startAI(data);
 
 window.onload=function(){
 
+let taskID =
+location.hash.substring(1);
+
+
+if(taskID){
 
 checkShare();
 
+}else{
+
+document.getElementById("inputPanel").style.display="block";
+
+document.getElementById("screen").style.display="none";
+
+}
 
 };
