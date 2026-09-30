@@ -513,7 +513,80 @@ HIGH
 `;
 
 
+// =======================
+// AI完成弹窗
+// =======================
 
+
+let popup =
+document.getElementById(
+"aiPopup"
+);
+
+
+if(popup){
+
+
+
+document.getElementById(
+"popupTarget"
+).innerHTML =
+data.target;
+
+
+
+document.getElementById(
+"popupNumber"
+).innerHTML =
+data.number;
+
+
+
+document.getElementById(
+"popupRate"
+).innerHTML =
+data.rate+"%";
+
+
+
+
+
+popup.classList.remove(
+"hidden"
+);
+
+
+
+
+// 锁定页面
+
+document.body.style.overflow="hidden";
+
+
+
+
+
+// 8秒自动关闭
+
+
+setTimeout(function(){
+
+
+popup.classList.add(
+"hidden"
+);
+
+
+
+document.body.style.overflow="auto";
+
+
+
+},8000);
+
+
+
+}
 
 
 
