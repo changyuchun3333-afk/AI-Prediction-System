@@ -65,7 +65,6 @@ document.getElementById(
 
 
 
-
 // ==============================
 // 创建分享任务
 // ==============================
@@ -95,18 +94,35 @@ document.getElementById("rate").value
 
 
 
+// 保存任务到 Cloudflare Worker
+
+
+let result =
+await saveTask(data);
+
+
+
+
+
+if(!result || !result.task){
+
+
+alert(
+"任务创建失败"
+);
+
+
+return;
+
+
+}
+
+
+
+
 
 let taskID =
-"AI"+Date.now();
-
-
-
-
-
-await saveTask(
-taskID,
-data
-);
+result.task;
 
 
 
@@ -158,12 +174,6 @@ link
 
 
 }
-
-
-
-
-
-
 
 
 
