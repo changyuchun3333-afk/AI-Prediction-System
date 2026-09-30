@@ -16,6 +16,11 @@ const ADMIN_PASSWORD = "qs133";
 // ==============================
 
 
+// ==============================
+// 登录后台
+// ==============================
+
+
 function login(){
 
 
@@ -24,12 +29,19 @@ document.getElementById("password").value;
 
 
 
-if(password === ADMIN_PASSWORD){
+if(password === "qs133"){
+
 
 
 document.getElementById(
 "loginPanel"
 ).style.display="none";
+
+
+
+document.getElementById(
+"adminPanel"
+).classList.remove("hidden");
 
 
 
@@ -51,9 +63,7 @@ document.getElementById(
 }
 
 
-
 }
-
 
 
 
@@ -166,7 +176,7 @@ alert(
 
 function startAI(data){
 
-document.getElementById("inputPanel").style.display="none";
+document.getElementById("adminPanel").style.display="none";
 
 
 document.getElementById("screen").style.display="block";
@@ -445,7 +455,7 @@ await getTask(taskID);
 if(data){
 
 
-document.getElementById("inputPanel").style.display="none";
+document.getElementById("adminPanel").style.display="none";
 
 
 document.getElementById("screen").style.display="block";
@@ -474,7 +484,6 @@ alert("任务不存在");
 window.onload=function(){
 
 
-
 let taskID =
 location.hash.substring(1);
 
@@ -490,14 +499,15 @@ checkShare();
 }else{
 
 
-document.getElementById("inputPanel").style.display="block";
+document.getElementById("loginPanel").style.display="block";
+
+document.getElementById("adminPanel").style.display="none";
 
 
 document.getElementById("screen").style.display="none";
 
 
 }
-
 
 
 };
