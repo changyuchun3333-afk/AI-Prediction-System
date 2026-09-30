@@ -75,21 +75,83 @@ async function saveTask(id,data){
 async function getTask(id){
 
 
-    const doc = await db
-    .collection("AI_TASKS")
-    .doc(id)
-    .get();
+    try{
+
+
+        // 先读取手机缓存
+
+        let cache =
+        localStorage.getItem(id);
 
 
 
-    if(doc.exists){
+        if(cache){
 
-        return doc.data();
+
+            console.log(
+            "读取本地缓存"
+            );
+
+
+            return JSON.parse(cache);
+
+
+        }
+
+
+
+
+        // Firebase读取
+
+        const doc =
+        await db
+        .collection("AI_TASKS")
+        .doc(id)
+        .get();
+
+
+
+        if(doc.exists){
+
+
+            let data =
+            doc.data();
+
+
+
+            // 保存本地
+
+            localStorage.setItem(
+            id,
+            JSON.stringify(data)
+            );
+
+
+
+            return data;
+
+
+        }
+
+
+
+        return null;
+
+
+
+    }catch(error){
+
+
+        console.log(
+        "Firebase读取失败:",
+        error
+        );
+
+
+        return null;
+
 
     }
-
-
-    return null;
 
 
 }
