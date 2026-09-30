@@ -20,10 +20,7 @@
 
 
 
-<!-- =====================
-     后台密码页面
-===================== -->
-
+<!-- 登录 -->
 
 <div class="panel" id="loginPanel">
 
@@ -47,11 +44,12 @@ placeholder="ENTER PASSWORD"
 
 
 
-<button onclick="login()">
+<button id="loginBtn">
 
 ACCESS SYSTEM
 
 </button>
+
 
 
 <div id="loginError"></div>
@@ -63,18 +61,14 @@ ACCESS SYSTEM
 
 
 
-<!-- =====================
-     AI后台输入页面
-===================== -->
 
+<!-- 后台 -->
 
 <div class="panel hidden" id="adminPanel">
 
 
 <h1>
-
 AI CORE
-
 </h1>
 
 
@@ -86,10 +80,9 @@ PREDICTION CONTROL PANEL
 
 
 
+
 <label>
-
 TARGET NAME
-
 </label>
 
 
@@ -102,9 +95,7 @@ placeholder="输入目标名称"
 
 
 <label>
-
 INPUT DATA
-
 </label>
 
 
@@ -115,10 +106,9 @@ placeholder="输入数字"
 
 
 
+
 <label>
-
 SUCCESS RATE %
-
 </label>
 
 
@@ -129,7 +119,8 @@ value="95.8"
 
 
 
-<button onclick="createShare()">
+
+<button id="shareBtn">
 
 GENERATE AI LINK
 
@@ -140,6 +131,7 @@ GENERATE AI LINK
 <div id="linkBox"></div>
 
 
+
 </div>
 
 
@@ -147,9 +139,8 @@ GENERATE AI LINK
 
 
 
-<!-- =====================
-     AI运行页面
-===================== -->
+
+<!-- AI运行 -->
 
 
 <div id="screen" class="hidden">
@@ -160,21 +151,16 @@ GENERATE AI LINK
 
 
 <div>
-
 AI CORE ONLINE
-
 </div>
 
 
 <div id="status">
-
 RUNNING...
-
 </div>
 
 
 </div>
-
 
 
 
@@ -187,9 +173,7 @@ TARGET:
 <br>
 
 
-<span id="targetShow">
-
-</span>
+<span id="targetShow"></span>
 
 
 </div>
@@ -198,9 +182,7 @@ TARGET:
 
 
 
-
 <div class="terminal" id="code">
-
 
 </div>
 
@@ -213,13 +195,10 @@ TARGET:
 
 <div id="progress">
 
-
 </div>
 
 
 </div>
-
-
 
 
 
@@ -231,9 +210,7 @@ TARGET:
 
 
 
-
 </div>
-
 
 
 
@@ -248,6 +225,35 @@ TARGET:
 <script src="firebase.js"></script>
 
 <script src="script.js"></script>
+
+
+
+
+<script>
+
+
+//绑定按钮
+
+document.getElementById("loginBtn")
+.onclick=function(){
+
+login();
+
+};
+
+
+
+document.getElementById("shareBtn")
+.onclick=function(){
+
+createShare();
+
+};
+
+
+
+</script>
+
 
 
 
