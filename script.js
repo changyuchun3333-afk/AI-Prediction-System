@@ -732,12 +732,8 @@ alert(
 
 function startMatrix(){
 
-
 let canvas =
-document.getElementById(
-"matrix"
-);
-
+document.getElementById("matrix");
 
 
 if(!canvas){
@@ -746,6 +742,8 @@ return;
 
 }
 
+...
+}
 
 
 let ctx =
@@ -888,13 +886,14 @@ draw,
 
 
 
-startMatrix();
+
 
 window.onload=function(){
 
 
+startMatrix();
 
-
+  
 
 let params =
 new URLSearchParams(
