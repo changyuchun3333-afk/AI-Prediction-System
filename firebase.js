@@ -32,7 +32,15 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
+db.enablePersistence()
+.catch(function(err){
 
+console.log(
+"缓存不可用",
+err
+);
+
+});
 
 
 
