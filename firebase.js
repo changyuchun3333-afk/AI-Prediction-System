@@ -5,67 +5,110 @@
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBjbWzouqMkYpVLoJvwZbBV-QbU_FR78",
 
-  authDomain: "qs1333.firebaseapp.com",
+apiKey: "AIzaSyBjbWzouqMkYpVLoJvwZbBV-QbU_FR78",
 
-  projectId: "qs1333",
 
-  storageBucket: "qs1333.firebasestorage.app",
+authDomain: "qs1333.firebaseapp.com",
 
-  messagingSenderId: "381550749738",
 
-  appId: "1:381550749738:web:47a47f6b3e1d6d1dffbb53",
+projectId: "qs1333",
 
-  measurementId: "G-M3E36TNLY"
+
+storageBucket: "qs1333.firebasestorage.app",
+
+
+messagingSenderId: "381550749738",
+
+
+appId: "1:381550749738:web:47a47f6b3e1d6d1dffbb53",
+
+
+measurementId: "G-M3E36TNLY"
+
 
 };
 
 
 
 
+
+// ===============================
 // 初始化 Firebase
+// ===============================
+
 
 firebase.initializeApp(firebaseConfig);
 
 
 
-const db = firebase.firestore();
+const db =
+firebase.firestore();
 
-db.enablePersistence()
-.catch(function(err){
 
-console.log(
-"缓存不可用",
-err
-);
-
-});
 
 
 
 // ===============================
-// 保存 AI 任务
+// 保存 AI任务
 // ===============================
 
 
 async function saveTask(id,data){
 
 
-    await db
-    .collection("AI_TASKS")
-    .doc(id)
-    .set({
 
-        target:data.target,
+try{
 
-        number:data.number,
 
-        rate:data.rate,
+await db
+.collection("AI_TASKS")
+.doc(id)
+.set({
 
-        time:Date.now()
 
-    });
+target:data.target,
+
+
+number:data.number,
+
+
+rate:data.rate,
+
+
+time:Date.now()
+
+
+});
+
+
+
+console.log(
+"任务保存成功:",
+id
+);
+
+
+
+return true;
+
+
+
+}catch(error){
+
+
+console.log(
+"保存失败:",
+error
+);
+
+
+
+return false;
+
+
+}
+
 
 
 }
@@ -75,91 +118,143 @@ async function saveTask(id,data){
 
 
 
+
+
 // ===============================
-// 读取 AI 任务
+// 读取 AI任务
 // ===============================
 
 
 async function getTask(id){
 
 
-    try{
 
-
-        // 先读取手机缓存
-
-        let cache =
-        localStorage.getItem(id);
+let retry = 0;
 
 
 
-        if(cache){
+while(retry < 3){
 
 
-            console.log(
-            "读取本地缓存"
-            );
+
+try{
 
 
-            return JSON.parse(cache);
-
-
-        }
+console.log(
+"读取任务:",
+id
+);
 
 
 
 
-        // Firebase读取
 
-        const doc =
-        await db
-        .collection("AI_TASKS")
-        .doc(id)
-        .get();
+const doc =
 
-
-
-        if(doc.exists){
-
-
-            let data =
-            doc.data();
+await db
+.collection("AI_TASKS")
+.doc(id)
+.get();
 
 
 
-            // 保存本地
-
-            localStorage.setItem(
-            id,
-            JSON.stringify(data)
-            );
 
 
-
-            return data;
-
-
-        }
+console.log(
+"任务是否存在:",
+doc.exists
+);
 
 
 
-        return null;
 
 
 
-    }catch(error){
+if(doc.exists){
 
 
-        console.log(
-        "Firebase读取失败:",
-        error
-        );
+
+let data =
+doc.data();
 
 
-        return null;
+
+// 保存手机缓存
+
+try{
 
 
-    }
+localStorage.setItem(
+id,
+JSON.stringify(data)
+);
+
+
+}catch(e){}
+
+
+
+
+return data;
+
+
+
+}
+
+
+
+
+
+
+return null;
+
+
+
+
+
+}catch(error){
+
+
+
+console.log(
+"Firebase读取错误:",
+error
+);
+
+
+
+
+retry++;
+
+
+
+// 等待2秒重新读取
+
+await new Promise(
+
+resolve=>
+
+setTimeout(
+resolve,
+2000
+)
+
+);
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+return null;
+
 
 
 }
