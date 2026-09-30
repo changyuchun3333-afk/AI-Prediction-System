@@ -512,19 +512,31 @@ HIGH
 
 `;
 
+//显示AI完成弹窗
 
-// =======================
-// AI完成弹窗
-// =======================
+showAIPopup(data);
+
+// ==============================
+// AI完成锁定弹窗
+// ==============================
+
+
+function showAIPopup(data){
 
 
 let popup =
-document.getElementById(
-"aiPopup"
-);
+document.getElementById("aiPopup");
 
 
-if(popup){
+
+if(!popup){
+
+console.log("没有找到弹窗");
+
+return;
+
+}
+
 
 
 
@@ -551,72 +563,42 @@ data.rate+"%";
 
 
 
+//显示弹窗
+
 popup.classList.remove(
 "hidden"
 );
 
 
 
-
-// 锁定页面
+//锁定页面
 
 document.body.style.overflow="hidden";
 
 
 
+//禁止点击其它地方
+
+popup.style.pointerEvents="auto";
 
 
-// 20秒自动关闭
 
+
+// 强制锁定10秒
 
 setTimeout(function(){
 
 
-popup.classList.add(
-"hidden"
-);
+
+document.body.style.overflow="hidden";
 
 
 
-document.body.style.overflow="auto";
-
-
-
-},8000);
+},10000);
 
 
 
 }
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-},120);
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
 
 
 // ==============================
