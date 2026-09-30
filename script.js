@@ -333,6 +333,8 @@ document.getElementById(
 
 
 
+// 页面结果显示
+
 document.getElementById(
 "result"
 ).innerHTML=
@@ -372,7 +374,6 @@ ${data.number}
 
 
 
-
 <br>
 
 
@@ -383,7 +384,6 @@ SUCCESS RATE:
 <div class="value rate">
 ${data.rate}%
 </div>
-
 
 
 
@@ -404,6 +404,68 @@ HIGH
 
 
 `;
+
+
+
+
+
+// =====================
+// AI弹窗显示
+// =====================
+
+
+
+document.getElementById(
+"popupTarget"
+).innerHTML =
+data.target;
+
+
+
+
+document.getElementById(
+"popupNumber"
+).innerHTML =
+data.number;
+
+
+
+
+document.getElementById(
+"popupRate"
+).innerHTML =
+data.rate+"%";
+
+
+
+
+
+document.getElementById(
+"aiPopup"
+).classList.remove(
+"hidden"
+);
+
+
+
+
+
+// 8秒后自动关闭弹窗
+
+
+setTimeout(function(){
+
+
+document.getElementById(
+"aiPopup"
+).classList.add(
+"hidden"
+);
+
+
+
+},8000);
+
 
 
 
