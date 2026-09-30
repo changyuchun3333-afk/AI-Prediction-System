@@ -566,7 +566,7 @@ document.body.style.overflow="hidden";
 
 
 
-// 8秒自动关闭
+// 20秒自动关闭
 
 
 setTimeout(function(){
@@ -589,108 +589,6 @@ document.body.style.overflow="auto";
 }
 
 
-
-
-
-
-
-
-// =======================
-// 弹窗锁定
-// =======================
-
-
-
-let popup =
-document.getElementById(
-"aiPopup"
-);
-
-
-
-if(popup){
-
-
-
-document.getElementById(
-"popupTarget"
-).innerHTML =
-data.target;
-
-
-
-
-document.getElementById(
-"popupNumber"
-).innerHTML =
-data.number;
-
-
-
-
-document.getElementById(
-"popupRate"
-).innerHTML =
-data.rate+"%";
-
-
-
-
-
-
-//显示弹窗
-
-popup.classList.remove(
-"hidden"
-);
-
-
-
-
-
-//禁止页面操作
-
-
-document.body.style.overflow=
-"hidden";
-
-
-
-
-
-popup.style.pointerEvents=
-"auto";
-
-
-
-
-
-
-
-
-//8秒后解除锁定
-
-
-setTimeout(function(){
-
-
-
-popup.classList.add(
-"hidden"
-);
-
-
-
-document.body.style.overflow=
-"auto";
-
-
-
-},8000);
-
-
-
-}
 
 
 
