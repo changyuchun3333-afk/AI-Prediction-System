@@ -327,49 +327,77 @@ document.getElementById(
 
 `
 
+document.getElementById(
+"result"
+).innerHTML =
+
+
+`
+
+<div class="finalResult">
+
+
+<h2>
 ANALYSIS COMPLETE
+</h2>
 
-<br><br>
+
+<br>
 
 
+<div>
 TARGET:
+</div>
 
-<br>
-
+<div class="value">
 ${data.target}
+</div>
 
 
-<br><br>
-
-
-INPUT DATA:
 
 <br>
 
+
+<div>
+INPUT NUMBER:
+</div>
+
+<div class="value">
 ${data.number}
+</div>
 
 
-<br><br>
+
+<br>
 
 
+<div>
 SUCCESS RATE:
+</div>
 
-<br>
-
+<div class="value rate">
 ${data.rate}%
+</div>
 
 
-<br><br>
-
-
-AI CONFIDENCE:
 
 <br>
 
+
+<div>
+AI CONFIDENCE:
+</div>
+
+
+<div class="value">
 HIGH
+</div>
+
+
+</div>
+
 
 `;
-
 
 
 }
