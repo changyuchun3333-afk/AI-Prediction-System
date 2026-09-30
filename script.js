@@ -618,7 +618,10 @@ return;
 
 }
 
-
+document.getElementById(
+"status"
+).innerHTML=
+"CONNECTING AI SERVER...";
 
 let data =
 await getTask(taskID);
@@ -837,7 +840,6 @@ startMatrix();
 
 
 
-
 let params =
 new URLSearchParams(
 location.search
@@ -851,16 +853,82 @@ params.get("task");
 
 
 
+// ==============================
+// 分享链接模式
+// ==============================
 
 if(taskID){
 
+
+
+//隐藏登录
+
+let login =
+document.getElementById(
+"loginPanel"
+);
+
+
+if(login){
+
+login.style.display="none";
+
+}
+
+
+
+//隐藏后台
+
+let admin =
+document.getElementById(
+"adminPanel"
+);
+
+
+if(admin){
+
+admin.style.display="none";
+
+}
+
+
+
+//提前显示运行页面
+
+let screen =
+document.getElementById(
+"screen"
+);
+
+
+if(screen){
+
+screen.classList.remove("hidden");
+
+screen.style.display="block";
+
+}
+
+
+
+//开始读取任务
 
 checkShare();
 
 
 
-}else{
+return;
 
+
+}
+
+
+
+
+
+// ==============================
+// 普通后台模式
+// ==============================
 
 
 let login =
@@ -869,19 +937,16 @@ document.getElementById(
 );
 
 
-
 let admin =
 document.getElementById(
 "adminPanel"
 );
 
 
-
 let screen =
 document.getElementById(
 "screen"
 );
-
 
 
 
@@ -904,10 +969,6 @@ admin.style.display="none";
 if(screen){
 
 screen.style.display="none";
-
-}
-
-
 
 }
 
