@@ -1,119 +1,55 @@
 // ===============================
-// Firebase 配置
+// Cloudflare Worker API
 // ===============================
 
 
-const firebaseConfig = {
-
-
-apiKey: "AIzaSyBjbWzouqMkYpVLoJvwZbBV-QbU_FR78",
-
-
-authDomain: "qs1333.firebaseapp.com",
-
-
-projectId: "qs1333",
-
-
-storageBucket: "qs1333.firebasestorage.app",
-
-
-messagingSenderId: "381550749738",
-
-
-appId: "1:381550749738:web:47a47f6b3e1d6d1dffbb53",
-
-
-measurementId: "G-M3E36TNLY"
-
-
-};
-
+const WORKER_URL =
+"https://ai-prediction-system.changyuchun3333.workers.dev";
 
 
 
 
 // ===============================
-// 初始化 Firebase
-// ===============================
-
-
-firebase.initializeApp(firebaseConfig);
-
-
-
-const db =
-firebase.firestore();
-
-
-
-
-
-// ===============================
-// 保存 AI任务
+// 保存任务
 // ===============================
 
 
 async function saveTask(id,data){
 
 
+let response =
+await fetch(
+WORKER_URL,
+{
 
-try{
+method:"POST",
 
-
-await db
-.collection("AI_TASKS")
-.doc(id)
-.set({
-
-
-target:data.target,
-
-
-number:data.number,
+headers:{
+"Content-Type":"application/json"
+},
 
 
-rate:data.rate,
-
-
-time:Date.now()
+body:JSON.stringify(data)
 
 
 });
 
 
+let result =
+await response.json();
+
 
 console.log(
-"任务保存成功:",
-id
+"任务创建:",
+result
 );
 
 
 
-return true;
-
-
-
-}catch(error){
-
-
-console.log(
-"保存失败:",
-error
-);
-
-
-
-return false;
+return result;
 
 
 }
-
-
-
-}
-
-
 
 
 
@@ -121,7 +57,7 @@ return false;
 
 
 // ===============================
-// 读取 AI任务
+// 获取任务
 // ===============================
 
 
@@ -129,69 +65,37 @@ async function getTask(id){
 
 
 
-let retry = 0;
-
-
-
-while(retry < 3){
-
-
-
 try{
 
 
-console.log(
-"读取任务:",
+let response =
+await fetch(
+
+WORKER_URL+
+"?task="+
 id
+
 );
-
-
-
-
-
-const doc =
-
-await db
-.collection("AI_TASKS")
-.doc(id)
-.get();
-
-
-
-
-
-console.log(
-"任务是否存在:",
-doc.exists
-);
-
-
-
-
-
-
-if(doc.exists){
 
 
 
 let data =
-doc.data();
+await response.json();
 
 
 
-// 保存手机缓存
-
-try{
+if(data.error){
 
 
-localStorage.setItem(
-id,
-JSON.stringify(data)
+console.log(
+"任务不存在"
 );
 
 
-}catch(e){}
+return null;
 
+
+}
 
 
 
@@ -199,61 +103,19 @@ return data;
 
 
 
-}
-
-
-
-
-
-
-return null;
-
-
-
-
-
-}catch(error){
-
+}catch(e){
 
 
 console.log(
-"Firebase读取错误:",
-error
+"Worker读取失败",
+e
 );
-
-
-
-
-retry++;
-
-
-
-// 等待2秒重新读取
-
-await new Promise(
-
-resolve=>
-
-setTimeout(
-resolve,
-2000
-)
-
-);
-
-
-
-}
-
-
-
-}
-
-
-
 
 
 return null;
+
+
+}
 
 
 
