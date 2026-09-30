@@ -678,9 +678,20 @@ startAI(data);
 }else{
 
 
-alert(
-"任务不存在"
-);
+document.getElementById(
+"status"
+).innerHTML=
+"CONNECTING SERVER...";
+
+
+setTimeout(function(){
+
+
+checkShare();
+
+
+},3000);
+
 
 
 }
