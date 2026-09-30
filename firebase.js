@@ -13,8 +13,13 @@ const WORKER_URL =
 // 保存任务
 // ===============================
 
+// ==============================
+// 保存 AI任务到 Worker
+// ==============================
 
-async function saveTask(id,data){
+
+async function saveTask(data){
+
 
 
 let response =
@@ -25,7 +30,9 @@ WORKER_URL,
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 
@@ -35,8 +42,14 @@ body:JSON.stringify(data)
 });
 
 
+
+
+
 let result =
 await response.json();
+
+
+
 
 
 console.log(
@@ -46,14 +59,13 @@ result
 
 
 
+
+
 return result;
 
 
+
 }
-
-
-
-
 
 
 // ===============================
