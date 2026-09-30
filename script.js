@@ -1,5 +1,5 @@
 // ==============================
-// AI CORE v6.0
+// AI CORE v7.0
 // ==============================
 
 
@@ -11,7 +11,7 @@ const ADMIN_PASSWORD = "qs133";
 
 
 // ==============================
-// 后台登录
+// 登录后台
 // ==============================
 
 
@@ -50,7 +50,7 @@ document.getElementById(
 
 document.getElementById(
 "loginError"
-).innerHTML=
+).innerHTML =
 "ACCESS DENIED";
 
 
@@ -65,12 +65,14 @@ document.getElementById(
 
 
 
+
 // ==============================
-// 创建分享链接
+// 创建分享任务
 // ==============================
 
 
 async function createShare(){
+
 
 
 let data={
@@ -93,13 +95,13 @@ document.getElementById("rate").value
 
 
 
+
 let taskID =
 "AI"+Date.now();
 
 
 
 
-// 保存 Firebase
 
 await saveTask(
 taskID,
@@ -109,7 +111,7 @@ data
 
 
 
-// 生成手机兼容链接
+
 
 let link =
 
@@ -120,11 +122,15 @@ taskID;
 
 
 
+
+
+
 document.getElementById(
 "linkBox"
 ).innerHTML=
 
 `
+
 SHARE LINK:
 
 <br><br>
@@ -135,13 +141,18 @@ ${link}
 
 
 
+
+
+
 navigator.clipboard.writeText(link);
 
 
 
 alert(
+
 "分享链接已复制:\n\n"+
 link
+
 );
 
 
@@ -157,27 +168,11 @@ link
 
 
 // ==============================
-// AI运行
+// AI运行核心
 // ==============================
 
 
 function startAI(data){
-
-
-
-//隐藏登录
-
-let loginPanel =
-document.getElementById(
-"loginPanel"
-);
-
-
-if(loginPanel){
-
-loginPanel.style.display="none";
-
-}
 
 
 
@@ -198,7 +193,28 @@ adminPanel.style.display="none";
 
 
 
-//显示运行页面
+
+//隐藏登录
+
+let loginPanel =
+document.getElementById(
+"loginPanel"
+);
+
+
+if(loginPanel){
+
+loginPanel.style.display="none";
+
+}
+
+
+
+
+
+
+//显示运行界面
+
 
 let screen =
 document.getElementById(
@@ -206,28 +222,35 @@ document.getElementById(
 );
 
 
-if(screen){
 
-screen.classList.remove("hidden");
+screen.classList.remove(
+"hidden"
+);
+
+
 
 screen.style.display="block";
 
-}
 
 
 
 
-//显示目标
+
+
 
 document.getElementById(
 "targetShow"
-).innerHTML =
+).innerHTML=
 data.target;
 
 
 
 
+
 let progress=0;
+
+
+
 
 
 
@@ -267,8 +290,13 @@ let logs=[
 
 
 
-let timer =
-setInterval(function(){
+
+
+
+
+let timer=setInterval(function(){
+
+
 
 
 
@@ -277,16 +305,24 @@ document.createElement("div");
 
 
 
-line.innerHTML=
+
+
+line.innerHTML =
+
 
 "> "+
+
 logs[
 Math.floor(
 Math.random()*logs.length
 )
+
 ]
+
 +
+
 "  "+
+
 Math.floor(
 Math.random()*999999
 );
@@ -295,9 +331,44 @@ Math.random()*999999
 
 
 
+
+let codeBox =
 document.getElementById(
 "code"
-).appendChild(line);
+);
+
+
+
+
+
+codeBox.appendChild(line);
+
+
+
+
+//代码自动滚动
+
+codeBox.scrollTop =
+codeBox.scrollHeight;
+
+
+
+
+
+//限制代码数量
+
+if(codeBox.children.length>25){
+
+
+codeBox.removeChild(
+codeBox.firstChild
+);
+
+
+}
+
+
+
 
 
 
@@ -306,10 +377,17 @@ progress++;
 
 
 
+
+
 document.getElementById(
 "progress"
 ).style.width=
+
 progress+"%";
+
+
+
+
 
 
 
@@ -324,6 +402,8 @@ clearInterval(timer);
 
 
 
+
+
 document.getElementById(
 "status"
 ).innerHTML=
@@ -333,11 +413,17 @@ document.getElementById(
 
 
 
-// 页面结果显示
+
+
+
+
+//显示结果
+
 
 document.getElementById(
 "result"
 ).innerHTML=
+
 
 
 `
@@ -346,56 +432,77 @@ document.getElementById(
 
 
 <h2>
+
 ANALYSIS COMPLETE
+
 </h2>
 
 
 
-<div>
+<br>
+
+
 TARGET:
-</div>
+
+<br>
+
 
 <div class="value">
+
 ${data.target}
+
 </div>
+
 
 
 
 <br>
 
 
-<div>
 INPUT NUMBER:
-</div>
+
+<br>
+
 
 <div class="value">
+
 ${data.number}
+
 </div>
+
+
 
 
 
 <br>
 
 
-<div>
 SUCCESS RATE:
-</div>
+
+<br>
+
 
 <div class="value rate">
+
 ${data.rate}%
+
 </div>
+
 
 
 
 <br>
 
 
-<div>
 AI CONFIDENCE:
-</div>
+
+<br>
+
 
 <div class="value">
+
 HIGH
+
 </div>
 
 
@@ -409,9 +516,26 @@ HIGH
 
 
 
-// =====================
-// AI弹窗显示
-// =====================
+
+
+
+
+
+
+// =======================
+// 弹窗锁定
+// =======================
+
+
+
+let popup =
+document.getElementById(
+"aiPopup"
+);
+
+
+
+if(popup){
 
 
 
@@ -440,9 +564,10 @@ data.rate+"%";
 
 
 
-document.getElementById(
-"aiPopup"
-).classList.remove(
+
+//显示弹窗
+
+popup.classList.remove(
 "hidden"
 );
 
@@ -450,17 +575,41 @@ document.getElementById(
 
 
 
-// 8秒后自动关闭弹窗
+//禁止页面操作
+
+
+document.body.style.overflow=
+"hidden";
+
+
+
+
+
+popup.style.pointerEvents=
+"auto";
+
+
+
+
+
+
+
+
+//8秒后解除锁定
 
 
 setTimeout(function(){
 
 
-document.getElementById(
-"aiPopup"
-).classList.add(
+
+popup.classList.add(
 "hidden"
 );
+
+
+
+document.body.style.overflow=
+"auto";
 
 
 
@@ -468,8 +617,16 @@ document.getElementById(
 
 
 
+}
+
+
+
+
+
 
 }
+
+
 
 
 
@@ -477,7 +634,11 @@ document.getElementById(
 
 
 
+
+
 }
+
+
 
 
 
@@ -508,6 +669,8 @@ params.get("task");
 
 
 
+
+
 if(!taskID){
 
 return;
@@ -516,8 +679,13 @@ return;
 
 
 
+
+
 let data =
 await getTask(taskID);
+
+
+
 
 
 
@@ -536,11 +704,14 @@ alert(
 );
 
 
+
+}
+
+
+
 }
 
 
-
-}
 
 
 
@@ -559,10 +730,14 @@ window.onload=function(){
 
 
 
+
+
 let params =
 new URLSearchParams(
 location.search
 );
+
+
 
 
 
@@ -571,7 +746,12 @@ params.get("task");
 
 
 
+
+
+
+
 if(taskID){
+
 
 
 checkShare();
@@ -582,21 +762,32 @@ checkShare();
 
 
 
+
+
 document.getElementById(
 "loginPanel"
-).style.display="block";
+).style.display=
+"block";
+
+
 
 
 
 document.getElementById(
 "adminPanel"
-).style.display="none";
+).style.display=
+"none";
+
+
 
 
 
 document.getElementById(
 "screen"
-).style.display="none";
+).style.display=
+"none";
+
+
 
 
 }
