@@ -524,6 +524,11 @@ showAIPopup(data);
 // ==============================
 
 
+// ==============================
+// AI完成锁定弹窗
+// ==============================
+
+
 function showAIPopup(data){
 
 
@@ -565,8 +570,7 @@ data.rate+"%";
 
 
 
-
-//显示弹窗
+// 显示弹窗
 
 popup.classList.remove(
 "hidden"
@@ -574,34 +578,32 @@ popup.classList.remove(
 
 
 
-//锁定页面
+// 锁定页面
 
-document.body.style.overflow="hidden";
-
-
-
-//禁止点击其它地方
-
-popup.style.pointerEvents="auto";
+document.body.style.overflow =
+"hidden";
 
 
 
+// 弹窗置顶
 
-// 强制锁定10秒
-
-setTimeout(function(){
-
-
-
-document.body.style.overflow="hidden";
+popup.style.zIndex =
+"99999";
 
 
 
-},10000);
+
+// 不自动关闭
+// 保持锁定
 
 
 
 }
+
+
+
+
+
 
 
 // ==============================
@@ -625,8 +627,6 @@ params.get("task");
 
 
 
-
-
 if(!taskID){
 
 return;
@@ -635,13 +635,8 @@ return;
 
 
 
-
-
 let data =
 await getTask(taskID);
-
-
-
 
 
 
@@ -660,26 +655,18 @@ alert(
 );
 
 
+}
+
 
 }
 
 
 
-}
 
 
 
 
 
-
-
-
-
-
-
-// ==============================
-// 页面启动
-// ==============================
 
 // ==============================
 // MATRIX 数字雨
@@ -688,8 +675,12 @@ alert(
 
 function startMatrix(){
 
+
 let canvas =
-document.getElementById("matrix");
+document.getElementById(
+"matrix"
+);
+
 
 
 if(!canvas){
@@ -700,9 +691,10 @@ return;
 
 
 
-
 let ctx =
-canvas.getContext("2d");
+canvas.getContext(
+"2d"
+);
 
 
 
@@ -721,7 +713,8 @@ let chars =
 
 
 
-let fontSize=14;
+let fontSize =
+14;
 
 
 
@@ -750,8 +743,9 @@ function draw(){
 
 
 
-ctx.fillStyle=
+ctx.fillStyle =
 "rgba(0,0,0,0.08)";
+
 
 
 ctx.fillRect(
@@ -764,7 +758,7 @@ canvas.height
 
 
 
-ctx.fillStyle=
+ctx.fillStyle =
 "#00ff66";
 
 
@@ -790,13 +784,9 @@ Math.random()*chars.length
 
 
 ctx.fillText(
-
 text,
-
 i*fontSize,
-
 drops[i]*fontSize
-
 );
 
 
@@ -843,18 +833,30 @@ draw,
 
 
 
+
+
+
+
+// ==============================
+// 页面启动
+// ==============================
+
+
 window.onload=function(){
 
 
 
-  
+// 启动数字雨
+
+startMatrix();
+
+
+
 
 let params =
 new URLSearchParams(
 location.search
 );
-
-
 
 
 
@@ -865,10 +867,7 @@ params.get("task");
 
 
 
-
-
 if(taskID){
-
 
 
 checkShare();
@@ -879,36 +878,54 @@ checkShare();
 
 
 
-
-
+let login =
 document.getElementById(
 "loginPanel"
-).style.display=
-"block";
+);
 
 
 
-
-
+let admin =
 document.getElementById(
 "adminPanel"
-).style.display=
-"none";
+);
 
 
 
-
-
+let screen =
 document.getElementById(
 "screen"
-).style.display=
-"none";
+);
 
+
+
+
+if(login){
+
+login.style.display="block";
+
+}
+
+
+
+if(admin){
+
+admin.style.display="none";
+
+}
+
+
+
+if(screen){
+
+screen.style.display="none";
+
+}
 
 
 
 }
 
-startMatrix();
+
 
 };
