@@ -891,7 +891,6 @@ draw,
 window.onload=function(){
 
 
-startMatrix();
 
   
 
@@ -955,6 +954,6 @@ document.getElementById(
 
 }
 
-
+startMatrix();
 
 };
