@@ -533,7 +533,9 @@ showAIPopup(data);
 
 function showAIPopup(data){
 
+alert("弹窗启动");
 
+  
 let popup =
 document.getElementById("aiPopup");
 
