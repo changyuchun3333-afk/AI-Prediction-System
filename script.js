@@ -143,6 +143,10 @@ ${link}
 
 navigator.clipboard.writeText(link);
 
+alert(
+"分享链接已复制:\n\n"+link
+);
+
 
 
 }
@@ -162,7 +166,15 @@ navigator.clipboard.writeText(link);
 
 function startAI(data){
 
+document.getElementById("inputPanel").style.display="none";
 
+
+document.getElementById("screen").style.display="block";
+
+
+//下面继续你的代码
+
+}
 
 document.getElementById(
 "screen"
@@ -413,9 +425,26 @@ async function checkShare(){
 
 
 
-let taskID =
+if(data){
 
-location.hash.substring(1);
+
+document.getElementById("inputPanel").style.display="none";
+
+
+document.getElementById("screen").style.display="block";
+
+
+startAI(data);
+
+
+}else{
+
+
+alert("任务不存在");
+
+
+}
+
 
 
 
@@ -462,6 +491,23 @@ startAI(data);
 
 
 window.onload=function(){
+
+let taskID = location.hash.substring(1);
+
+
+if(taskID){
+
+    checkShare();
+
+}else{
+
+    document.getElementById("inputPanel").style.display="block";
+
+    document.getElementById("screen").style.display="none";
+
+}
+
+};
 
 let taskID =
 location.hash.substring(1);
