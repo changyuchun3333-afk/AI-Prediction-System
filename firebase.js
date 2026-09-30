@@ -4,7 +4,7 @@
 
 
 const WORKER_URL =
-"https://https://ai-core-api.changyuchun3333.workers.dev/";
+"https://ai-core-api.changyuchun3333.workers.dev";
 
 
 
