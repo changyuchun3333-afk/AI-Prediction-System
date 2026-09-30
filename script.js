@@ -575,6 +575,8 @@ popup.classList.remove(
 );
 
 
+popup.style.display="flex";
+
 
 document.body.style.overflow =
 "hidden";
