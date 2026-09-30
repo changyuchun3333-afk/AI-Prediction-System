@@ -599,12 +599,10 @@ popup.style.zIndex =
 async function checkShare(){
 
 
-
 let params =
 new URLSearchParams(
 location.search
 );
-
 
 
 let taskID =
@@ -618,10 +616,38 @@ return;
 
 }
 
-document.getElementById(
-"status"
-).innerHTML=
+
+// 先显示AI页面
+
+let screen =
+document.getElementById("screen");
+
+
+if(screen){
+
+screen.classList.remove("hidden");
+
+screen.style.display="block";
+
+}
+
+
+// 显示连接状态
+
+let status =
+document.getElementById("status");
+
+
+if(status){
+
+status.innerHTML=
 "CONNECTING AI SERVER...";
+
+}
+
+
+
+// 后台读取Firebase
 
 let data =
 await getTask(taskID);
@@ -632,7 +658,6 @@ if(data){
 
 
 startAI(data);
-
 
 
 }else{
@@ -647,7 +672,6 @@ alert(
 
 
 }
-
 
 
 
