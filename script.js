@@ -115,7 +115,7 @@ let link =
 
 location.origin+
 location.pathname+
-"#"+
+"?task="+
 taskID;
 
 
@@ -398,8 +398,14 @@ async function checkShare(){
 
 
 
+let params =
+new URLSearchParams(
+location.search
+);
+
+
 let taskID =
-location.hash.substring(1);
+params.get("task");
 
 
 
@@ -453,8 +459,14 @@ window.onload=function(){
 
 
 
+let params =
+new URLSearchParams(
+location.search
+);
+
+
 let taskID =
-location.hash.substring(1);
+params.get("task");
 
 
 
