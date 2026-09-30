@@ -740,3 +740,42 @@ font-size:18px;
 
 
 }
+
+.finalResult{
+
+margin-top:30px;
+
+padding:20px;
+
+text-align:center;
+
+font-size:18px;
+
+line-height:1.8;
+
+}
+
+
+.finalResult h2{
+
+font-size:28px;
+
+}
+
+
+.finalResult .value{
+
+font-size:24px;
+
+font-weight:bold;
+
+margin-top:5px;
+
+}
+
+
+.finalResult .rate{
+
+font-size:35px;
+
+}
