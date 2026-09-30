@@ -1,5 +1,5 @@
 // ==============================
-// AI CORE v4.0
+// AI CORE v5.0
 // ==============================
 
 
@@ -9,15 +9,8 @@ const ADMIN_PASSWORD = "qs133";
 
 
 
-
-
 // ==============================
-// 登录后台
-// ==============================
-
-
-// ==============================
-// 登录后台
+// 后台登录
 // ==============================
 
 
@@ -29,8 +22,7 @@ document.getElementById("password").value;
 
 
 
-if(password === "qs133"){
-
+if(password === ADMIN_PASSWORD){
 
 
 document.getElementById(
@@ -56,7 +48,7 @@ document.getElementById(
 
 document.getElementById(
 "loginError"
-).innerHTML =
+).innerHTML=
 "ACCESS DENIED";
 
 
@@ -68,10 +60,8 @@ document.getElementById(
 
 
 
-
-
 // ==============================
-// 生成分享任务
+// 创建分享链接
 // ==============================
 
 
@@ -94,25 +84,21 @@ rate:
 document.getElementById("rate").value
 
 
-
 };
 
 
 
 
-
-// 生成任务编号
+// 创建任务ID
 
 
 let taskID =
-"AI"+
-Date.now();
+"AI"+Date.now();
 
 
 
 
-
-// 保存到 Firebase
+// 保存Firebase
 
 await saveTask(
 taskID,
@@ -121,6 +107,8 @@ data
 
 
 
+
+// 分享链接
 
 
 let link =
@@ -133,7 +121,6 @@ taskID;
 
 
 
-
 document.getElementById(
 "linkBox"
 ).innerHTML=
@@ -141,7 +128,7 @@ document.getElementById(
 `
 SHARE LINK:
 
-<br>
+<br><br>
 
 ${link}
 
@@ -149,12 +136,13 @@ ${link}
 
 
 
-
-
 navigator.clipboard.writeText(link);
 
+
+
 alert(
-"分享链接已复制:\n\n"+link
+"分享链接已复制\n\n"+
+link
 );
 
 
@@ -166,25 +154,50 @@ alert(
 
 
 
-
-
-
 // ==============================
-// AI运行
+// AI运行页面
 // ==============================
 
 
 function startAI(data){
 
-document.getElementById("adminPanel").style.display="none";
 
 
-document.getElementById("screen").style.display="block";
+//隐藏后台
+
+let admin =
+document.getElementById(
+"adminPanel"
+);
 
 
-//下面继续你的代码
+if(admin){
+
+admin.style.display="none";
 
 }
+
+
+
+
+//隐藏登录
+
+let login =
+document.getElementById(
+"loginPanel"
+);
+
+
+if(login){
+
+login.style.display="none";
+
+}
+
+
+
+
+//显示运行页面
 
 document.getElementById(
 "screen"
@@ -192,30 +205,17 @@ document.getElementById(
 
 
 
-document.getElementById(
-"loginPanel"
-).style.display="none";
 
-
-document.getElementById(
-"adminPanel"
-).style.display="none";
-
-
-
-
+//显示目标
 
 document.getElementById(
 "targetShow"
-).innerHTML =
+).innerHTML=
 data.target;
 
 
 
-
-
 let progress=0;
-
 
 
 
@@ -237,19 +237,16 @@ let logs=[
 "SEARCHING NEURAL DATABASE",
 
 
-"QUANTUM PATH FOUND",
-
-
 "RUNNING PREDICTION MODEL",
 
 
-"VERIFYING RESULT",
+"VERIFYING DATA",
 
 
-"DATA STREAM COMPLETE",
+"QUANTUM PATH FOUND",
 
 
-"CALCULATION FINISHED"
+"AI MODEL COMPLETE"
 
 
 ];
@@ -258,7 +255,8 @@ let logs=[
 
 
 
-let timer=setInterval(()=>{
+let timer =
+setInterval(function(){
 
 
 
@@ -267,25 +265,16 @@ document.createElement("div");
 
 
 
-line.innerHTML =
+line.innerHTML=
 
-"> "
-
-+
-
+"> "+
 logs[
 Math.floor(
 Math.random()*logs.length
 )
-
 ]
-
 +
-
-"  "
-
-+
-
+"  "+
 Math.floor(
 Math.random()*999999
 );
@@ -301,26 +290,6 @@ document.getElementById(
 
 
 
-
-if(
-document.getElementById("code").children.length>18
-){
-
-
-document.getElementById("code")
-.removeChild(
-document.getElementById("code").firstChild
-);
-
-
-}
-
-
-
-
-
-
-
 progress++;
 
 
@@ -328,9 +297,7 @@ progress++;
 document.getElementById(
 "progress"
 ).style.width=
-
 progress+"%";
-
 
 
 
@@ -353,10 +320,10 @@ document.getElementById(
 
 
 
+
 document.getElementById(
 "result"
 ).innerHTML=
-
 
 `
 
@@ -401,9 +368,7 @@ AI CONFIDENCE:
 
 HIGH
 
-
 `;
-
 
 
 
@@ -424,14 +389,13 @@ HIGH
 
 
 
-
 // ==============================
-// 打开分享链接自动运行
+// 分享链接读取
 // ==============================
-
 
 
 async function checkShare(){
+
 
 
 let taskID =
@@ -455,11 +419,6 @@ await getTask(taskID);
 if(data){
 
 
-document.getElementById("adminPanel").style.display="none";
-
-
-document.getElementById("screen").style.display="block";
-
 
 startAI(data);
 
@@ -468,7 +427,9 @@ startAI(data);
 }else{
 
 
-alert("任务不存在");
+alert(
+"任务不存在"
+);
 
 
 }
@@ -479,9 +440,17 @@ alert("任务不存在");
 
 
 
+
+
+
+
+// ==============================
 // 页面启动
+// ==============================
+
 
 window.onload=function(){
+
 
 
 let taskID =
@@ -492,6 +461,9 @@ location.hash.substring(1);
 if(taskID){
 
 
+
+// 分享链接
+
 checkShare();
 
 
@@ -499,15 +471,29 @@ checkShare();
 }else{
 
 
-document.getElementById("loginPanel").style.display="block";
 
-document.getElementById("adminPanel").style.display="none";
+// 普通进入显示登录
 
 
-document.getElementById("screen").style.display="none";
+document.getElementById(
+"loginPanel"
+).style.display="block";
+
+
+
+document.getElementById(
+"adminPanel"
+).style.display="none";
+
+
+
+document.getElementById(
+"screen"
+).style.display="none";
 
 
 }
+
 
 
 };
