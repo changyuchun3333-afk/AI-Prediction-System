@@ -1,11 +1,12 @@
 // ==============================
-// AI CORE v5.0
+// AI CORE v6.0
 // ==============================
 
 
 // 后台密码
 
 const ADMIN_PASSWORD = "qs133";
+
 
 
 
@@ -23,6 +24,7 @@ document.getElementById("password").value;
 
 
 if(password === ADMIN_PASSWORD){
+
 
 
 document.getElementById(
@@ -60,13 +62,15 @@ document.getElementById(
 
 
 
+
+
+
 // ==============================
 // 创建分享链接
 // ==============================
 
 
 async function createShare(){
-
 
 
 let data={
@@ -89,16 +93,13 @@ document.getElementById("rate").value
 
 
 
-// 创建任务ID
-
-
 let taskID =
 "AI"+Date.now();
 
 
 
 
-// 保存Firebase
+// 保存 Firebase
 
 await saveTask(
 taskID,
@@ -108,8 +109,7 @@ data
 
 
 
-// 分享链接
-
+// 生成手机兼容链接
 
 let link =
 
@@ -117,7 +117,6 @@ location.origin+
 location.pathname+
 "?task="+
 taskID;
-
 
 
 
@@ -141,7 +140,7 @@ navigator.clipboard.writeText(link);
 
 
 alert(
-"分享链接已复制\n\n"+
+"分享链接已复制:\n\n"+
 link
 );
 
@@ -154,8 +153,11 @@ link
 
 
 
+
+
+
 // ==============================
-// AI运行页面
+// AI运行
 // ==============================
 
 
@@ -163,34 +165,33 @@ function startAI(data){
 
 
 
-//隐藏后台
-
-let admin =
-document.getElementById(
-"adminPanel"
-);
-
-
-if(admin){
-
-admin.style.display="none";
-
-}
-
-
-
-
 //隐藏登录
 
-let login =
+let loginPanel =
 document.getElementById(
 "loginPanel"
 );
 
 
-if(login){
+if(loginPanel){
 
-login.style.display="none";
+loginPanel.style.display="none";
+
+}
+
+
+
+//隐藏后台
+
+let adminPanel =
+document.getElementById(
+"adminPanel"
+);
+
+
+if(adminPanel){
+
+adminPanel.style.display="none";
 
 }
 
@@ -199,9 +200,19 @@ login.style.display="none";
 
 //显示运行页面
 
+let screen =
 document.getElementById(
 "screen"
-).style.display="block";
+);
+
+
+if(screen){
+
+screen.classList.remove("hidden");
+
+screen.style.display="block";
+
+}
 
 
 
@@ -210,8 +221,9 @@ document.getElementById(
 
 document.getElementById(
 "targetShow"
-).innerHTML=
+).innerHTML =
 data.target;
+
 
 
 
@@ -325,12 +337,6 @@ document.getElementById(
 "result"
 ).innerHTML=
 
-`
-
-document.getElementById(
-"result"
-).innerHTML =
-
 
 `
 
@@ -341,8 +347,6 @@ document.getElementById(
 ANALYSIS COMPLETE
 </h2>
 
-
-<br>
 
 
 <div>
@@ -368,6 +372,7 @@ ${data.number}
 
 
 
+
 <br>
 
 
@@ -381,6 +386,7 @@ ${data.rate}%
 
 
 
+
 <br>
 
 
@@ -388,16 +394,17 @@ ${data.rate}%
 AI CONFIDENCE:
 </div>
 
-
 <div class="value">
 HIGH
 </div>
+
 
 
 </div>
 
 
 `;
+
 
 
 }
@@ -409,6 +416,7 @@ HIGH
 
 
 }
+
 
 
 
@@ -432,6 +440,7 @@ location.search
 );
 
 
+
 let taskID =
 params.get("task");
 
@@ -453,7 +462,6 @@ await getTask(taskID);
 if(data){
 
 
-
 startAI(data);
 
 
@@ -469,7 +477,9 @@ alert(
 }
 
 
+
 }
+
 
 
 
@@ -493,6 +503,7 @@ location.search
 );
 
 
+
 let taskID =
 params.get("task");
 
@@ -501,18 +512,12 @@ params.get("task");
 if(taskID){
 
 
-
-// 分享链接
-
 checkShare();
 
 
 
 }else{
 
-
-
-// 普通进入显示登录
 
 
 document.getElementById(
