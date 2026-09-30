@@ -1511,20 +1511,36 @@ translateY(0);
 
 #matrix{
 
+
 position:fixed;
 
+
 top:0;
+
 
 left:0;
 
 
-width:100%;
+width:100vw;
 
 
-height:100%;
+height:100vh;
 
 
-z-index:-1;
+
+z-index:0;
+
+
+
+pointer-events:none;
+
+
+
+}
+
+
+
+body{
 
 
 background:#000;
@@ -1534,15 +1550,17 @@ background:#000;
 
 
 
-/* 保证内容浮在数字雨上面 */
-
 
 .panel,
 #screen,
 .popup{
 
+
 position:relative;
 
-z-index:2;
+
+z-index:5;
+
+
 
 }
