@@ -424,6 +424,23 @@ HIGH
 async function checkShare(){
 
 
+let taskID =
+location.hash.substring(1);
+
+
+
+if(!taskID){
+
+return;
+
+}
+
+
+
+let data =
+await getTask(taskID);
+
+
 
 if(data){
 
@@ -435,6 +452,7 @@ document.getElementById("screen").style.display="block";
 
 
 startAI(data);
+
 
 
 }else{
@@ -446,83 +464,40 @@ alert("任务不存在");
 }
 
 
-
-
-
-
-if(taskID){
-
-
-
-let data =
-
-await getTask(taskID);
-
-
-
-
-
-if(data){
-
-document.getElementById("inputPanel").style.display="none";
-
-document.getElementById("screen").style.display="block";
-
-startAI(data);
-
 }
-
-
-
-}
-
-
-
-}
-
-
-
-
 
 
 
 
 // 页面启动
 
-
 window.onload=function(){
 
-let taskID = location.hash.substring(1);
 
-
-if(taskID){
-
-    checkShare();
-
-}else{
-
-    document.getElementById("inputPanel").style.display="block";
-
-    document.getElementById("screen").style.display="none";
-
-}
-
-};
 
 let taskID =
 location.hash.substring(1);
 
 
+
 if(taskID){
+
 
 checkShare();
 
+
+
 }else{
+
 
 document.getElementById("inputPanel").style.display="block";
 
+
 document.getElementById("screen").style.display="none";
 
+
 }
+
+
 
 };
