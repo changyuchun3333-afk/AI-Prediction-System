@@ -518,12 +518,12 @@ HIGH
 showAIPopup(data);
   
 }
+
+},120);
+
+
+}
   
-// ==============================
-// AI完成锁定弹窗
-// ==============================
-
-
 // ==============================
 // AI完成锁定弹窗
 // ==============================
@@ -539,12 +539,9 @@ document.getElementById("aiPopup");
 
 if(!popup){
 
-console.log("没有找到弹窗");
-
 return;
 
 }
-
 
 
 
@@ -569,39 +566,22 @@ data.rate+"%";
 
 
 
-
-// 显示弹窗
-
 popup.classList.remove(
 "hidden"
 );
 
 
 
-// 锁定页面
-
 document.body.style.overflow =
 "hidden";
 
 
 
-// 弹窗置顶
-
 popup.style.zIndex =
 "99999";
 
 
-
-
-// 不自动关闭
-// 保持锁定
-
-
-
 }
-
-
-
 
 
 
