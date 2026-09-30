@@ -521,7 +521,7 @@ showAIPopup(data);
 }
 
 
-},120);
+},80);
 
 
 }
@@ -649,9 +649,24 @@ status.innerHTML=
 
 // 后台读取Firebase
 
+//先显示AI界面
+
+document.getElementById(
+"screen"
+).style.display="block";
+
+
+//显示连接状态
+
+document.getElementById(
+"status"
+).innerHTML=
+"CONNECTING AI SERVER...";
+
+
+
 let data =
 await getTask(taskID);
-
 
 
 if(data){
@@ -834,7 +849,7 @@ drops[i]++;
 
 setInterval(
 draw,
-50
+80
 );
 
 
