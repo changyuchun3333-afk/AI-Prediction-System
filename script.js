@@ -662,30 +662,69 @@ async function checkShare(){
     try{
 
 
-        // 从 Cloudflare Worker 读取任务
+     // 从 Cloudflare Worker 读取任务
 
-        let data =
-        await getTask(taskID);
-
-
-
-        console.log(
-            "TASK DATA:",
-            data
-        );
+let data =
+await getTask(taskID);
 
 
 
+console.log(
+    "TASK DATA:",
+    data
+);
 
-        if(data){
+
+// 测试读取结果
+
+alert(
+    "Worker返回数据:\n\n" +
+    JSON.stringify(data)
+);
 
 
-            if(status){
 
-                status.innerHTML =
-                "AI SERVER CONNECTED";
+if(data){
 
-            }
+
+    if(status){
+
+        status.innerHTML =
+        "AI SERVER CONNECTED";
+
+    }
+
+
+
+    console.log(
+        "准备启动AI:",
+        data
+    );
+
+
+    startAI(data);
+
+
+
+}else{
+
+
+    if(status){
+
+        status.innerHTML =
+        "TASK NOT FOUND";
+
+    }
+
+
+
+    console.log(
+        "没有找到任务:",
+        taskID
+    );
+
+
+}
 
 
             // 开始AI运行
