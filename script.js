@@ -901,7 +901,10 @@ location.search
 let taskID =
 params.get("task");
 
-
+console.log(
+"当前任务ID:",
+taskID
+);
 
 
 // ==============================
