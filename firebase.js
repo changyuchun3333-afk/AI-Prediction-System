@@ -95,7 +95,7 @@ id
 
 
 
-// 增加超时保护
+// 第一次请求
 
 let response =
 await Promise.race([
@@ -126,7 +126,6 @@ setTimeout(
 
 
 
-
 console.log(
 "Worker状态:",
 response.status
@@ -140,25 +139,86 @@ await response.json();
 
 
 console.log(
-"Worker返回:",
+"第一次返回:",
 data
 );
 
 
 
+
+// 如果第一次失败，等待2秒重新请求
+
 if(data.error){
 
 
+
 console.log(
-"Worker错误:",
-data.error
+"第一次读取失败，开始重试..."
 );
+
+
+
+await new Promise(
+
+resolve=>
+
+setTimeout(
+resolve,
+2000
+)
+
+);
+
+
+
+
+
+let retryResponse =
+await fetch(
+
+WORKER_URL +
+"?task=" +
+encodeURIComponent(id)
+
+);
+
+
+
+
+
+let retryData =
+await retryResponse.json();
+
+
+
+
+
+console.log(
+"第二次返回:",
+retryData
+);
+
+
+
+
+
+if(!retryData.error){
+
+return retryData;
+
+}
+
+
+
 
 
 return null;
 
 
+
 }
+
+
 
 
 
@@ -169,6 +229,7 @@ return data;
 }catch(error){
 
 
+
 console.log(
 "读取任务失败:",
 error
@@ -177,6 +238,7 @@ error
 
 
 return null;
+
 
 
 }
