@@ -662,7 +662,14 @@ await getTask(taskID);
 
 
 console.log(
-"TASK DATA:",
+"任务ID:",
+taskID
+);
+
+
+
+console.log(
+"读取结果:",
 data
 );
 
@@ -671,13 +678,55 @@ data
 if(data){
 
 
-if(status){
 
-status.innerHTML =
-"AI SERVER CONNECTED";
+    if(status){
+
+        status.innerHTML =
+        "AI SERVER CONNECTED";
+
+    }
+
+
+
+    console.log(
+        "准备启动AI:",
+        data
+    );
+
+
+
+    setTimeout(function(){
+
+
+        startAI(data);
+
+
+    },500);
+
+
+
+
+
+}else{
+
+
+
+    if(status){
+
+        status.innerHTML =
+        "TASK NOT FOUND";
+
+    }
+
+
+
+    console.log(
+        "任务不存在:",
+        taskID
+    );
+
 
 }
-
 
 // 延迟启动，避免页面初始化冲突
 
