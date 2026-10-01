@@ -670,22 +670,36 @@ data
 
 
 
+console.log(
+"已经拿到任务数据:",
+data
+);
+
+
+
+
 
 if(data){
 
 
 
-if(status){
+    if(status){
 
-status.innerHTML =
-"AI SERVER CONNECTED";
+        status.innerHTML =
+        "AI SERVER CONNECTED";
 
-}
-
-
+    }
 
 
-startAI(data);
+
+    console.log(
+    "开始启动AI:",
+    data
+    );
+
+
+
+    startAI(data);
 
 
 
@@ -693,12 +707,19 @@ startAI(data);
 
 
 
-if(status){
+    if(status){
 
-status.innerHTML =
-"TASK NOT FOUND";
+        status.innerHTML =
+        "TASK NOT FOUND";
 
-}
+    }
+
+
+
+    console.log(
+    "任务读取失败:",
+    taskID
+    );
 
 
 
