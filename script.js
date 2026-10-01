@@ -944,7 +944,7 @@ draw,
 // ==============================
 
 
-window.onload=function(){
+window.onload = async function(){
 
 
 
@@ -954,9 +954,12 @@ startMatrix();
 
 
 
+
+// 获取URL参数
+
 let params =
 new URLSearchParams(
-location.search
+window.location.search
 );
 
 
@@ -964,10 +967,15 @@ location.search
 let taskID =
 params.get("task");
 
+
+
 console.log(
 "当前任务ID:",
 taskID
 );
+
+
+
 
 
 // ==============================
@@ -975,6 +983,14 @@ taskID
 // ==============================
 
 if(taskID){
+
+
+
+console.log(
+"进入分享模式:",
+taskID
+);
+
 
 
 
@@ -986,11 +1002,14 @@ document.getElementById(
 );
 
 
+
 if(login){
 
 login.style.display="none";
 
 }
+
+
 
 
 
@@ -1002,6 +1021,7 @@ document.getElementById(
 );
 
 
+
 if(admin){
 
 admin.style.display="none";
@@ -1010,12 +1030,15 @@ admin.style.display="none";
 
 
 
-//提前显示运行页面
+
+
+//显示AI运行页面
 
 let screen =
 document.getElementById(
 "screen"
 );
+
 
 
 if(screen){
@@ -1028,9 +1051,37 @@ screen.style.display="block";
 
 
 
-//开始读取任务
+
+
+let status =
+document.getElementById(
+"status"
+);
+
+
+
+if(status){
+
+status.innerHTML =
+"CONNECTING AI SERVER...";
+
+}
+
+
+
+
+
+// 等页面元素加载完成
+
+setTimeout(function(){
+
 
 checkShare();
+
+
+},300);
+
+
 
 
 
@@ -1038,6 +1089,7 @@ return;
 
 
 }
+
 
 
 
@@ -1054,16 +1106,20 @@ document.getElementById(
 );
 
 
+
 let admin =
 document.getElementById(
 "adminPanel"
 );
 
 
+
 let screen =
 document.getElementById(
 "screen"
 );
+
+
 
 
 
@@ -1075,11 +1131,15 @@ login.style.display="block";
 
 
 
+
+
 if(admin){
 
 admin.style.display="none";
 
 }
+
+
 
 
 
