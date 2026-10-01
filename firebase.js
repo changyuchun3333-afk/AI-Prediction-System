@@ -85,6 +85,14 @@ return null;
 async function getTask(id){
 
 
+console.log(
+"我是最新firebase.js"
+);
+
+
+try{
+
+
 try{
 
 
