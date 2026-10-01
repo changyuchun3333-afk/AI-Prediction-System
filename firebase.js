@@ -76,17 +76,12 @@ return result;
 async function getTask(id){
 
 
-
 try{
 
 
-let response =
+let response = 
 await fetch(
-
-WORKER_URL+
-"?task="+
-id
-
+WORKER_URL + "?task=" + id
 );
 
 
@@ -96,16 +91,16 @@ await response.json();
 
 
 
-if(data.error){
-
-
 console.log(
-"任务不存在"
+"Worker返回:",
+data
 );
 
 
-return null;
 
+if(data.error){
+
+return null;
 
 }
 
@@ -115,12 +110,12 @@ return data;
 
 
 
-}catch(e){
+}catch(error){
 
 
 console.log(
-"Worker读取失败",
-e
+"读取失败:",
+error
 );
 
 
@@ -128,7 +123,6 @@ return null;
 
 
 }
-
 
 
 }
