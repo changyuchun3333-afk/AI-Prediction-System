@@ -609,111 +609,137 @@ popup.style.zIndex =
 async function checkShare(){
 
 
-let params =
-new URLSearchParams(
-location.search
-);
+    let params =
+    new URLSearchParams(
+        location.search
+    );
 
 
-let taskID =
-params.get("task");
+    let taskID =
+    params.get("task");
 
 
 
-if(!taskID){
+    if(!taskID){
 
-return;
+        return;
+
+    }
+
+
+
+    // 显示AI运行页面
+
+    let screen =
+    document.getElementById("screen");
+
+
+    if(screen){
+
+        screen.classList.remove("hidden");
+
+        screen.style.display="block";
+
+    }
+
+
+
+    // 显示连接状态
+
+    let status =
+    document.getElementById("status");
+
+
+    if(status){
+
+        status.innerHTML =
+        "CONNECTING AI SERVER...";
+
+    }
+
+
+
+    try{
+
+
+        // 从 Cloudflare Worker 读取任务
+
+        let data =
+        await getTask(taskID);
+
+
+
+        console.log(
+            "TASK DATA:",
+            data
+        );
+
+
+
+
+        if(data){
+
+
+            if(status){
+
+                status.innerHTML =
+                "AI SERVER CONNECTED";
+
+            }
+
+
+            // 开始AI运行
+
+            startAI(data);
+
+
+
+        }else{
+
+
+            if(status){
+
+                status.innerHTML =
+                "TASK NOT FOUND";
+
+            }
+
+
+
+            console.log(
+                "任务不存在:",
+                taskID
+            );
+
+
+        }
+
+
+
+    }catch(error){
+
+
+        console.log(
+            "读取任务错误:",
+            error
+        );
+
+
+
+        if(status){
+
+            status.innerHTML =
+            "SERVER CONNECTION ERROR";
+
+        }
+
+
+
+    }
+
+
 
 }
-
-
-// 先显示AI页面
-
-let screen =
-document.getElementById("screen");
-
-
-if(screen){
-
-screen.classList.remove("hidden");
-
-screen.style.display="block";
-
-}
-
-
-// 显示连接状态
-
-let status =
-document.getElementById("status");
-
-
-if(status){
-
-status.innerHTML=
-"CONNECTING AI SERVER...";
-
-}
-
-
-
-// 后台读取Firebase
-
-//先显示AI界面
-
-document.getElementById(
-"screen"
-).style.display="block";
-
-
-//显示连接状态
-
-document.getElementById(
-"status"
-).innerHTML=
-"CONNECTING AI SERVER...";
-
-
-
-let data =
-await getTask(taskID);
-
-
-if(data){
-
-
-startAI(data);
-
-
-}else{
-
-
-document.getElementById(
-"status"
-).innerHTML=
-"CONNECTING SERVER...";
-
-
-setTimeout(function(){
-
-
-checkShare();
-
-
-},3000);
-
-
-
-}
-
-
-}
-
-
-
-
-
-
 
 
 // ==============================
