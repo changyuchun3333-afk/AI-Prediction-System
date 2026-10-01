@@ -70,7 +70,6 @@ return null;
 }
 
 
-
 }
 
 
@@ -90,8 +89,6 @@ console.log(
 );
 
 
-try{
-
 
 try{
 
@@ -100,6 +97,7 @@ console.log(
 "请求任务ID:",
 id
 );
+
 
 
 
@@ -134,6 +132,8 @@ setTimeout(
 
 
 
+
+
 console.log(
 "Worker状态:",
 response.status
@@ -141,8 +141,12 @@ response.status
 
 
 
+
+
 let data =
 await response.json();
+
+
 
 
 
@@ -154,15 +158,17 @@ data
 
 
 
-// 如果第一次失败，等待2秒重新请求
+
+// 第一次失败，重新请求
 
 if(data.error){
 
 
 
 console.log(
-"第一次读取失败，开始重试..."
+"第一次读取失败，2秒后重试..."
 );
+
 
 
 
@@ -212,11 +218,11 @@ retryData
 
 if(!retryData.error){
 
+
 return retryData;
 
+
 }
-
-
 
 
 
