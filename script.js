@@ -619,12 +619,13 @@ let taskID =
 params.get("task");
 
 
-// 没有分享任务，正常进入主页
+
 if(!taskID){
 
 return;
 
 }
+
 
 
 
@@ -634,9 +635,12 @@ document.getElementById("screen");
 
 if(screen){
 
+screen.classList.remove("hidden");
+
 screen.style.display="block";
 
 }
+
 
 
 
@@ -653,8 +657,6 @@ status.innerHTML =
 
 
 
-try{
-
 
 let data =
 await getTask(taskID);
@@ -662,16 +664,10 @@ await getTask(taskID);
 
 
 console.log(
-"任务ID:",
-taskID
-);
-
-
-
-console.log(
-"读取结果:",
+"TASK DATA:",
 data
 );
+
 
 
 
@@ -679,66 +675,22 @@ if(data){
 
 
 
-    if(status){
+if(status){
 
-        status.innerHTML =
-        "AI SERVER CONNECTED";
-
-    }
-
-
-
-    console.log(
-        "准备启动AI:",
-        data
-    );
-
-
-
-    setTimeout(function(){
-
-
-        startAI(data);
-
-
-    },500);
-
-
-
-
-
-}else{
-
-
-
-    if(status){
-
-        status.innerHTML =
-        "TASK NOT FOUND";
-
-    }
-
-
-
-    console.log(
-        "任务不存在:",
-        taskID
-    );
-
+status.innerHTML =
+"AI SERVER CONNECTED";
 
 }
 
-// 延迟启动，避免页面初始化冲突
 
-setTimeout(()=>{
+
 
 startAI(data);
-
-},500);
 
 
 
 }else{
+
 
 
 if(status){
@@ -749,42 +701,16 @@ status.innerHTML =
 }
 
 
-}
-
-
-
-}catch(e){
-
-
-console.log(
-"checkShare error:",
-e
-);
-
-
-
-if(status){
-
-status.innerHTML =
-"SERVER ERROR";
-
-}
-
-
-}
-
 
 }
 
 
 
-    // 显示AI运行页面
+}
 
-   
 // ==============================
 // MATRIX 数字雨
 // ==============================
-
 
 function startMatrix(){
 
