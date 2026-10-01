@@ -90,6 +90,14 @@ console.log(
 
 
 
+console.log(
+"请求地址:",
+WORKER_URL+"?task="+id
+);
+
+
+
+
 try{
 
 
@@ -145,6 +153,15 @@ response.status
 
 let data =
 await response.json();
+
+
+
+
+
+console.log(
+"完整Worker返回:",
+JSON.stringify(data)
+);
 
 
 
