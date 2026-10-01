@@ -9,10 +9,6 @@ const WORKER_URL =
 
 
 
-// ===============================
-// 保存任务
-// ===============================
-
 // ==============================
 // 保存 AI任务到 Worker
 // ==============================
@@ -20,6 +16,8 @@ const WORKER_URL =
 
 async function saveTask(data){
 
+
+try{
 
 
 let response =
@@ -38,17 +36,11 @@ headers:{
 
 body:JSON.stringify(data)
 
-
 });
-
-
-
 
 
 let result =
 await response.json();
-
-
 
 
 
@@ -59,13 +51,30 @@ result
 
 
 
-
-
 return result;
 
 
 
+}catch(error){
+
+
+console.log(
+"创建任务失败:",
+error
+);
+
+
+return null;
+
+
 }
+
+
+
+}
+
+
+
 
 
 // ===============================
@@ -79,9 +88,48 @@ async function getTask(id){
 try{
 
 
-let response = 
-await fetch(
-WORKER_URL + "?task=" + id
+console.log(
+"请求任务ID:",
+id
+);
+
+
+
+// 增加超时保护
+
+let response =
+await Promise.race([
+
+
+fetch(
+WORKER_URL +
+"?task=" +
+encodeURIComponent(id)
+),
+
+
+
+new Promise((_,reject)=>
+
+setTimeout(
+
+()=>reject("请求超时"),
+
+8000
+
+)
+
+)
+
+
+]);
+
+
+
+
+console.log(
+"Worker状态:",
+response.status
 );
 
 
@@ -100,7 +148,15 @@ data
 
 if(data.error){
 
+
+console.log(
+"Worker错误:",
+data.error
+);
+
+
 return null;
+
 
 }
 
@@ -114,9 +170,10 @@ return data;
 
 
 console.log(
-"读取失败:",
+"读取任务失败:",
 error
 );
+
 
 
 return null;
