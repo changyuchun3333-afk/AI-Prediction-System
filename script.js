@@ -620,11 +620,25 @@ params.get("task");
 
 
 
+console.log(
+"checkShare任务ID:",
+taskID
+);
+
+
+
+
+
 if(!taskID){
+
+console.log(
+"没有发现task参数"
+);
 
 return;
 
 }
+
 
 
 
@@ -644,6 +658,7 @@ screen.style.display="block";
 
 
 
+
 let status =
 document.getElementById("status");
 
@@ -658,6 +673,10 @@ status.innerHTML =
 
 
 
+
+try{
+
+
 let data =
 await getTask(taskID);
 
@@ -670,36 +689,36 @@ data
 
 
 
-console.log(
-"已经拿到任务数据:",
-data
-);
-
-
-
-
 
 if(data){
 
 
 
-    if(status){
-
-        status.innerHTML =
-        "AI SERVER CONNECTED";
-
-    }
+console.log(
+"任务读取成功:",
+data
+);
 
 
 
-    console.log(
-    "开始启动AI:",
-    data
-    );
+if(status){
+
+status.innerHTML =
+"AI SERVER CONNECTED";
+
+}
 
 
 
-    startAI(data);
+setTimeout(()=>{
+
+
+startAI(data);
+
+
+},500);
+
+
 
 
 
@@ -707,21 +726,17 @@ if(data){
 
 
 
-    if(status){
-
-        status.innerHTML =
-        "TASK NOT FOUND";
-
-    }
+console.log(
+"任务不存在:",
+taskID
+);
 
 
 
-    console.log(
-    "任务读取失败:",
-    taskID
-    );
+if(status){
 
-
+status.innerHTML =
+"TASK NOT FOUND";
 
 }
 
@@ -729,6 +744,33 @@ if(data){
 
 }
 
+
+
+}catch(error){
+
+
+
+console.log(
+"checkShare错误:",
+error
+);
+
+
+
+if(status){
+
+status.innerHTML =
+"SERVER ERROR";
+
+}
+
+
+
+}
+
+
+
+}
 // ==============================
 // MATRIX 数字雨
 // ==============================
