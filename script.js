@@ -609,22 +609,123 @@ popup.style.zIndex =
 async function checkShare(){
 
 
-    let params =
-    new URLSearchParams(
-        location.search
-    );
+let params =
+new URLSearchParams(
+location.search
+);
 
 
-    let taskID =
-    params.get("task");
+let taskID =
+params.get("task");
+
+
+// 没有分享任务，正常进入主页
+if(!taskID){
+
+return;
+
+}
 
 
 
-    if(!taskID){
+let screen =
+document.getElementById("screen");
 
-        return;
 
-    }
+if(screen){
+
+screen.style.display="block";
+
+}
+
+
+
+let status =
+document.getElementById("status");
+
+
+if(status){
+
+status.innerHTML =
+"CONNECTING AI SERVER...";
+
+}
+
+
+
+try{
+
+
+let data =
+await getTask(taskID);
+
+
+
+console.log(
+"TASK DATA:",
+data
+);
+
+
+
+if(data){
+
+
+if(status){
+
+status.innerHTML =
+"AI SERVER CONNECTED";
+
+}
+
+
+// 延迟启动，避免页面初始化冲突
+
+setTimeout(()=>{
+
+startAI(data);
+
+},500);
+
+
+
+}else{
+
+
+if(status){
+
+status.innerHTML =
+"TASK NOT FOUND";
+
+}
+
+
+}
+
+
+
+}catch(e){
+
+
+console.log(
+"checkShare error:",
+e
+);
+
+
+
+if(status){
+
+status.innerHTML =
+"SERVER ERROR";
+
+}
+
+
+}
+
+
+}
 
 
 
@@ -677,10 +778,6 @@ console.log(
 
 // 测试读取结果
 
-alert(
-    "Worker返回数据:\n\n" +
-    JSON.stringify(data)
-);
 
 
 
